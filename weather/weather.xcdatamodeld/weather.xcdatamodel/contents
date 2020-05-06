@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="18G1012" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CityObject" representedClassName="CityObject" syncable="YES" codeGenerationType="class">
+        <attribute name="countryCity" optional="YES" attributeType="String"/>
+        <attribute name="idCity" optional="YES" attributeType="String"/>
+        <attribute name="nameCity" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="WeatherListObject" representedClassName="WeatherListObject" syncable="YES" codeGenerationType="class">
+        <attribute name="countryCityList" optional="YES" attributeType="String"/>
+        <attribute name="idCityListObject" optional="YES" attributeType="String"/>
+        <attribute name="nameCityList" optional="YES" attributeType="String"/>
+        <attribute name="tempCityList" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="WeatherWeekObject" representedClassName="WeatherWeekObject" syncable="YES" codeGenerationType="class">
+        <attribute name="cityIDWeek" optional="YES" attributeType="String"/>
+        <attribute name="descriptionWeek" optional="YES" attributeType="String"/>
+        <attribute name="feelsLikeWeek" optional="YES" attributeType="String"/>
+        <attribute name="humidityWeek" optional="YES" attributeType="String"/>
+        <attribute name="iconIDWeek" optional="YES" attributeType="String"/>
+        <attribute name="nameCityWeek" optional="YES" attributeType="String"/>
+        <attribute name="pressureWeek" optional="YES" attributeType="String"/>
+        <attribute name="tempMaxWeek" optional="YES" attributeType="String"/>
+        <attribute name="tempMinWeek" optional="YES" attributeType="String"/>
+        <attribute name="tempWeek" optional="YES" attributeType="String"/>
+        <attribute name="timeWeek" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="CityObject" positionX="-63" positionY="54" width="128" height="88"/>
+        <element name="WeatherListObject" positionX="-54" positionY="72" width="128" height="103"/>
+        <element name="WeatherWeekObject" positionX="-54" positionY="63" width="128" height="208"/>
+    </elements>
+</model>

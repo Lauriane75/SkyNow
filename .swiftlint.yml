@@ -1,0 +1,11 @@
+type_body_length:
+- 200 # warning
+- 300 # error
+
+line_length: 300
+
+disabled_rules:
+- force_cast
+- weak_delegate
+- identifier_name
+- implicit_getter
