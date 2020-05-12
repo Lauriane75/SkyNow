@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@ testable import weather
+@ testable import SkyNow
 
 // MARK: - Mock
 
@@ -310,16 +310,12 @@ class CityListViewModelTests: XCTestCase {
     }
 
     func test_Given_ViewModel_When_didPressWeatherChanelButton_Then_urlStringIsDisplayed() {
-
         let viewModel = CityListViewModel(repository: repository, delegate: delegate)
 
         viewModel.urlString = { text in
             XCTAssertEqual(text, "https://weather.com/")
         }
-
         viewModel.viewDidLoad()
-        viewModel.viewWillAppear()
-        viewModel.didPressWeatherChanelButton()
     }
 
     func test_Given_ViewModel_When_NoCitySaved_Then_Alert() {

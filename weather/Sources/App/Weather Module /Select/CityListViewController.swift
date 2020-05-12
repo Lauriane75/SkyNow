@@ -35,11 +35,13 @@ CLLocationManagerDelegate {
 
     private var source = CityListDataSource()
 
-    var animator: UIViewPropertyAnimator?
+    private var animator: UIViewPropertyAnimator?
 
-    var isCelsius = true
+    private var isCelsius = true
 
-    let locationManager = CLLocationManager()
+    private var urlString: String?
+
+    private let locationManager = CLLocationManager()
 
     // MARK: - View life cycle
 
@@ -107,6 +109,9 @@ CLLocationManagerDelegate {
                 }
             }
         }
+        viewModel.urlString = { [weak self] text in
+            self?.urlString = text
+        }
         viewModel.unitText = { [weak self] text in
             self?.unitButton.setTitle(text, for: .normal)
         }
@@ -153,11 +158,9 @@ CLLocationManagerDelegate {
     }
 
     @IBAction func didPressWeatherChanelButton(_ sender: Any) {
-        viewModel.didPressWeatherChanelButton()
-        viewModel.urlString = { text in
-            guard let url = URL(string: text) else { return }
-            UIApplication.shared.open(url)
-         }
+        guard urlString != nil else { return }
+        guard let url = URL(string: urlString!) else { return }
+        UIApplication.shared.open(url)
     }
 
     @IBAction func didPressUnitButton(_ sender: Any) {

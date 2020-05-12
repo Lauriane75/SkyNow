@@ -23,7 +23,9 @@ class WeekViewController: UIViewController {
 
     private var source = WeekDataSource()
 
-    var isCelsius = true
+    private var isCelsius = true
+
+    private var urlString: String?
 
     // MARK: - View life cycle
 
@@ -50,6 +52,9 @@ class WeekViewController: UIViewController {
     private func bind(to viewModel: WeekViewModel) {
         viewModel.unitText = { [weak self] text in
             self?.unitButton.setTitle(text, for: .normal)
+        }
+        viewModel.urlString = { [weak self] text in
+            self?.urlString = text
         }
         viewModel.visibleItems = { [weak self] items in
             DispatchQueue.main.async {
@@ -83,11 +88,9 @@ class WeekViewController: UIViewController {
     // MARK: - View actions
 
     @IBAction func didPressWeatherChanelButton(_ sender: Any) {
-        viewModel.didPressWeatherChanelButton()
-        viewModel.urlString = { text in
-            guard let url = URL(string: text) else { return }
-            UIApplication.shared.open(url)
-        }
+        guard urlString != nil else { return }
+        guard let url = URL(string: urlString!) else { return }
+        UIApplication.shared.open(url)
     }
 
     @IBAction func didPressUnitButton(_ sender: Any) {

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@ testable import weather
+@ testable import SkyNow
 
 class MockRepository: WeatherRepositoryType {
 
@@ -19,7 +19,7 @@ class MockRepository: WeatherRepositoryType {
 
     var weather: Weather?
     var weatherList: WeatherList?
-    var weatherWeek: WeatherWeek?
+    var weatherWeek: Weather?
 
     var weatherListItems: [WeatherListItem]?
     var weatherWeekItems: [WeatherWeekItem]?
@@ -51,7 +51,7 @@ class MockRepository: WeatherRepositoryType {
         }
     }
 
-    func getWeatherWeek(idCity: String, callback: @escaping (Result<WeatherWeek>) -> Void, onError: @escaping (String) -> Void) {
+    func getWeatherWeek(idCity: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
         if isSuccess {
             guard let weatherWeek = weatherWeek else { return }
             callback(.success(value: weatherWeek))
@@ -60,6 +60,10 @@ class MockRepository: WeatherRepositoryType {
             callback(.error(error: error))
         }
     }
+
+    func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
+
+       }
 
     func getWeatherId(nameCity: String, country: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
         if isSuccess {

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@ testable import weather
+@ testable import SkyNow
 
 // MARK: - Mock
 

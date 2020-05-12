@@ -79,19 +79,20 @@ final class CityListViewModel {
         countryPlaceHolder?("France")
         addButtonText?("Add this city to the list")
         unitText?(" °F")
+        urlString?("https://weather.com/")
     }
 
     func viewWillAppear() {
         updateCityID()
-        updateWeatherListItems()
     }
 
     func viewDidAppear() {
         updateWeatherLocation()
+        updateWeatherListItems()
     }
 
     func didPressAddCity(nameCity: String, country: String) {
-        guard !nameCity.isEmpty && !country.isEmpty else {
+        if nameCity.contains(" ") || country.contains(" ") || nameCity.isEmpty || country.isEmpty {
             self.delegate?.displayAlert(for: .wrongSpelling)
             return }
         let cityVerif = CityVerif(nameCity: nameCity, country: country)
@@ -119,10 +120,6 @@ final class CityListViewModel {
         let item = self.weatherListItems[index]
         deleteItemInDataBase(item: item)
         weatherListItems.remove(at: index)
-    }
-
-    func didPressWeatherChanelButton() {
-        urlString?("https://weather.com/")
     }
 
     func didSendUserLocation(latitude: String, longitude: String) {

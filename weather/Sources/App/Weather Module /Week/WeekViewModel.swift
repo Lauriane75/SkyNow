@@ -59,6 +59,7 @@ final class WeekViewModel {
     func viewDidLoad() {
         isLoading?(true)
         unitText?(" °F")
+        urlString?("https://weather.com/")
     }
 
     func viewWillAppear() {
@@ -75,10 +76,6 @@ final class WeekViewModel {
         unit ? self.unitText?(" °F") : self.unitText?(" °C")
         isCelsius = unit
         fromDataBase ? delegate?.displayWeatherAlert(for: .errorService) : self.updateWeekWeatherItems()
-    }
-
-    func didPressWeatherChanelButton() {
-        urlString?("https://weather.com/")
     }
 
     // MARK: - Private Files

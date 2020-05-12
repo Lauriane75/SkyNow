@@ -28,9 +28,9 @@ extension Alert {
         case .nonUniqueCity:
             self = Alert(title: "Same city", message: "You've already added this city")
         case .wrongSpelling:
-            self = Alert(title: "Error", message: "Wrong spelling")
+            self = Alert(title: "Wrong spelling", message: "Make sure there is no space in the city or country name")
         case .addCity:
-                  self = Alert(title: "Add your first city", message: "Please select a city and a country")
+            self = Alert(title: "Add your first city", message: "Please select a city and a country")
         }
     }
 }
