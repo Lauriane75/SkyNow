@@ -27,6 +27,10 @@ final class CityListViewModel {
 
     private var fromDataBase = false
 
+    private var longitude = ""
+
+    private var latitude = ""
+
     private var weatherListItems: [WeatherListItem] = [] {
         didSet {
             self.visibleItems?(self.weatherListItems)
@@ -78,9 +82,12 @@ final class CityListViewModel {
     }
 
     func viewWillAppear() {
-        self.isLoading?(true)
         updateCityID()
         updateWeatherListItems()
+    }
+
+    func viewDidAppear() {
+        updateWeatherLocation()
     }
 
     func didPressAddCity(nameCity: String, country: String) {
@@ -88,8 +95,11 @@ final class CityListViewModel {
             self.delegate?.displayAlert(for: .wrongSpelling)
             return }
         let cityVerif = CityVerif(nameCity: nameCity, country: country)
-        containsCity(cityVerif: cityVerif)
-        getWeatherId(nameCity: nameCity, country: country)
+        if containsCity(cityVerif: cityVerif) {
+            delegate?.displayAlert(for: .nonUniqueCity)
+        } else {
+            getWeatherId(nameCity: nameCity, country: country)
+        }
     }
 
     func didPressUnitButton(unit: Bool) {
@@ -115,7 +125,38 @@ final class CityListViewModel {
         urlString?("https://weather.com/")
     }
 
+    func didSendUserLocation(latitude: String, longitude: String) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
     // MARK: - Private Functions
+
+    fileprivate func updateWeatherLocation() {
+        DispatchQueue.main.async {
+            self.repository.getLocationWeather(latitude: self.latitude, longitude: self.longitude, callback: { (weather) in
+                switch weather {
+                case .success(value: let weatherLocation):
+                    let id = "\(weatherLocation.city.id)"
+                    let name = weatherLocation.city.name
+                    let country = weatherLocation.city.country
+                    let cityVerif = CityVerif(nameCity: name, country: country)
+
+                    if self.containsCity(cityVerif: cityVerif) == false {
+                        let cityItem = CityItem(id: id, nameCity: name, country: country)
+                        self.repository.saveCityItem(cityItem: cityItem)
+                        self.updateCityID()
+                        self.updateWeatherListItems()
+                    }
+                case .error(error: let error):
+                    print(error)
+                }
+            }, onError: { [weak self] _ in
+                guard let self = self else { return }
+                self.delegate?.displayAlert(for: .errorService)
+            })
+        }
+    }
 
     fileprivate func getWeatherId(nameCity: String, country: String) {
         self.repository.getWeatherId(nameCity: nameCity, country: country, callback: { (weather) in
@@ -135,15 +176,16 @@ final class CityListViewModel {
         })
     }
 
-    fileprivate func containsCity(cityVerif: CityVerif) {
+    fileprivate func containsCity(cityVerif: CityVerif) -> Bool {
         if repository.containsCity(for: cityVerif) {
             self.isLoading?(false)
-            self.delegate?.displayAlert(for: .nonUniqueCity)
-            return
+            return true
         }
+        return false
     }
 
     fileprivate func updateCityID() {
+        self.isLoading?(true)
         self.cityId = ""
         repository.getCityItems { (cityItems) in
             cityItems.enumerated().forEach { (_, item) in

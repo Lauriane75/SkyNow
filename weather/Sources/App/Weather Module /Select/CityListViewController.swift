@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
-class CityListViewController: UIViewController {
+class CityListViewController: UIViewController,
+CLLocationManagerDelegate {
 
     // MARK: - Outlet
 
@@ -36,10 +39,13 @@ class CityListViewController: UIViewController {
 
     var isCelsius = true
 
+    let locationManager = CLLocationManager()
+
     // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkForAutorization()
 
         navigationBarCustom()
         elementCustom()
@@ -59,9 +65,22 @@ class CityListViewController: UIViewController {
         viewModel.viewWillAppear()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.viewDidAppear()
+    }
+
     deinit {
         keyboardWillHide()
-    }
+         NotificationCenter.default.removeObserver(self,
+                                                   name: UIResponder.keyboardWillShowNotification,
+                                                   object: nil)
+         NotificationCenter.default.removeObserver(self,
+                                                   name: UIResponder.keyboardWillHideNotification,
+                                                   object: nil)
+         NotificationCenter.default.removeObserver(self,
+                                                   name: UIResponder.keyboardWillChangeFrameNotification,
+                                                   object: nil)
+     }
 
     // MARK: - Private Functions
 
@@ -154,7 +173,22 @@ class CityListViewController: UIViewController {
         }
     }
 
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        viewModel.didSendUserLocation(latitude: "\(locValue.latitude)", longitude: "\(locValue.longitude)")
+    }
+
     // MARK: - Private Files
+
+    fileprivate func checkForAutorization() {
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
 
     fileprivate func hideStackView() {
         animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 1.0) {

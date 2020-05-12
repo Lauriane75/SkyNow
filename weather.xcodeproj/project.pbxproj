@@ -140,7 +140,7 @@
 		F6A7CF1323F3F62300DE4D2E /* WeatherWeekItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWeekItem.swift; sourceTree = "<group>"; };
 		F6C4531923FD3796009A0940 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		F6C98480245F647F00047277 /* RepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTests.swift; sourceTree = "<group>"; };
-		F6D806FC23ECB17500C53355 /* weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6D806FC23ECB17500C53355 /* SkyNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D806FF23ECB17500C53355 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6D8070623ECB17500C53355 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F6D8070923ECB17500C53355 /* weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = weather.xcdatamodel; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 		F6D806FD23ECB17500C53355 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F6D806FC23ECB17500C53355 /* weather.app */,
+				F6D806FC23ECB17500C53355 /* SkyNow.app */,
 				F6D8071523ECB17700C53355 /* weatherTests.xctest */,
 				F637845023FB2D2A0097CF20 /* weatherUITests.xctest */,
 			);
@@ -584,7 +584,7 @@
 			);
 			name = weather;
 			productName = weather;
-			productReference = F6D806FC23ECB17500C53355 /* weather.app */;
+			productReference = F6D806FC23ECB17500C53355 /* SkyNow.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F6D8071423ECB17700C53355 /* weatherTests */ = {
@@ -1046,8 +1046,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lauriane.haydari.weather;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "-com.lauriane.haydari.weather";
+				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1067,8 +1068,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauriane.haydari.weather;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -17,6 +17,7 @@ protocol WeatherRepositoryType: class {
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void)
     func getWeatherId(nameCity: String, country: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
     func getWeatherWeek(idCity: String, callback: @escaping (Result<WeatherWeek>) -> Void, onError: @escaping (String) -> Void)
+    func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<WeatherWeek>) -> Void, onError: @escaping (String) -> Void)
 
     // MARK: - Save in coredata
     func saveCityItem(cityItem: CityItem)
@@ -77,6 +78,24 @@ final class WeatherRepository: WeatherRepositoryType {
                                 switch weather {
                                 case .success(value: let weatherItem):
                                     let result: WeatherList = weatherItem
+                                    callback(.success(value: result))
+                                case .error(error: let error):
+                                    onError(error.localizedDescription)
+                                }
+        }
+    }
+
+    func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<WeatherWeek>) -> Void, onError: @escaping (String) -> Void) {
+
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&=metric&appid=916792210f24330ed8b2f3f603669f4d"
+        guard let url = URL(string: stringUrl) else { return }
+        context.client.request(type: WeatherWeek.self,
+                               requestType: .GET,
+                               url: url,
+                               cancelledBy: token) { weather in
+                                switch weather {
+                                case .success(value: let weatherItem):
+                                    let result: WeatherWeek = weatherItem
                                     callback(.success(value: result))
                                 case .error(error: let error):
                                     onError(error.localizedDescription)
