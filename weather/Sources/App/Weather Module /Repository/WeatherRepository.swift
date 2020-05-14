@@ -236,8 +236,7 @@ final class WeatherRepository: WeatherRepositoryType {
         let requestWeather: NSFetchRequest<WeatherWeekObject> = WeatherWeekObject.fetchRequest()
         guard let weatherItems = try? self.context.stack.context.fetch(requestWeather) else { return }
         self.weatherWeekObjects = weatherItems
-        let object = self.weatherWeekObjects.filter { (items) in
-            items.cityIDWeek == idCity }
+        let object = self.weatherWeekObjects.filter { (items) in items.cityIDWeek == idCity }
         guard !object.isEmpty else { return}
         object.enumerated().forEach { (_, item) in
             self.context.stack.context.delete(item)
