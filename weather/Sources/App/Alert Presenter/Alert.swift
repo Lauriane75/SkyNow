@@ -12,7 +12,7 @@ enum AlertType {
     case errorService
     case nonUniqueCity
     case wrongSpelling
-    case addCity
+    case userlocation
 }
 
 struct Alert {
@@ -29,8 +29,8 @@ extension Alert {
             self = Alert(title: "Same city", message: "You've already added this city")
         case .wrongSpelling:
             self = Alert(title: "Wrong spelling", message: "Make sure there is no space in the city or country name")
-        case .addCity:
-            self = Alert(title: "Add your first city", message: "Please select a city and a country")
+        case .userlocation:
+            self = Alert(title: "Can't access to your geolocation", message: "Please make sure you allowed this in your settings and get acces to internet")
         }
     }
 }

@@ -53,7 +53,7 @@ extension MainCoordinator {
         let navController = UINavigationController()
         navController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navController.navigationBar.shadowImage = UIImage()
-        navController.navigationBar.alpha = 0.0
+        navController.navigationBar.tintColor = UIColor.white
         UITabBar.appearance().tintColor = .lightGray
         UITabBar.appearance().backgroundColor = .clear
 

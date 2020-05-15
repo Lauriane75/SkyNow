@@ -16,17 +16,17 @@ CLLocationManagerDelegate {
     // MARK: - Outlet
 
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var countryTextField: UITextField!
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var plusButton: UIButton!
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     @IBOutlet weak var weatherChanelButton: UIButton!
+
     @IBOutlet weak var unitButton: UIButton!
 
     @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var searchTableView: UITableView!
+
     @IBOutlet weak var tableView: UITableView!
 
     // MARK: - Properties
@@ -35,7 +35,7 @@ CLLocationManagerDelegate {
 
     private var source = CityListDataSource()
 
-    private var animator: UIViewPropertyAnimator?
+    private var searchSource = CitiesSearchDataSource()
 
     private var isCelsius = true
 
@@ -43,27 +43,32 @@ CLLocationManagerDelegate {
 
     private let locationManager = CLLocationManager()
 
+    private lazy var searchController = UISearchController(searchResultsController: nil)
+
     // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         checkForAutorization()
-
         navigationBarCustom()
-        elementCustom()
+        navigationItem.searchController = searchController
 
         tableView.delegate = source
         tableView.dataSource = source
 
-        tapGestureRecognizerCustom()
+        searchTableView.delegate = searchSource
+        searchTableView.dataSource = searchSource
 
         bind(to: viewModel)
         bind(to: source)
+        bind(to: searchSource)
 
         viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBarCustom()
         viewModel.viewWillAppear()
     }
 
@@ -71,32 +76,20 @@ CLLocationManagerDelegate {
         viewModel.viewDidAppear()
     }
 
-    deinit {
-        keyboardWillHide()
-         NotificationCenter.default.removeObserver(self,
-                                                   name: UIResponder.keyboardWillShowNotification,
-                                                   object: nil)
-         NotificationCenter.default.removeObserver(self,
-                                                   name: UIResponder.keyboardWillHideNotification,
-                                                   object: nil)
-         NotificationCenter.default.removeObserver(self,
-                                                   name: UIResponder.keyboardWillChangeFrameNotification,
-                                                   object: nil)
-     }
-
     // MARK: - Private Functions
 
     private func bind(to viewModel: CityListViewModel) {
         viewModel.visibleItems = { [weak self] weatherItems in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                self?.source.update(with: weatherItems)
-                self?.tableView.reloadData()
+                self.source.update(with: weatherItems)
+                self.tableView.reloadData()
             }
         }
 
         viewModel.isLoading = { [weak self] loadingState in
+            guard let self = self else { return }
             DispatchQueue.main.async {
-                guard let self = self else { return }
                 switch loadingState {
                 case true:
                     self.tableView.isHidden = true
@@ -109,53 +102,43 @@ CLLocationManagerDelegate {
                 }
             }
         }
+        viewModel.cityData = { [weak self] items in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.searchSource.update(with: items)
+                self.searchTableView.reloadData()
+            }
+        }
         viewModel.urlString = { [weak self] text in
             self?.urlString = text
         }
         viewModel.unitText = { [weak self] text in
             self?.unitButton.setTitle(text, for: .normal)
         }
-        viewModel.cityText = { [weak self] text in
-            self?.cityLabel.text = text
-        }
-        viewModel.cityPlaceHolder = { [weak self] text in
-            self?.cityTextField.placeholder = text
-        }
-        viewModel.countryText = { [weak self] text in
-            self?.countryLabel.text = text
-        }
-        viewModel.countryPlaceHolder = { [weak self] text in
-            self?.countryTextField.placeholder = text
-        }
-        viewModel.addButtonText = { [weak self] text in
-            DispatchQueue.main.async {
-                self?.addButton.setTitle(text, for: .normal)
+        viewModel.tableViewisHidden = { [weak self] state in
+            self?.tableView.isHidden = state
+            if !state {
+                self?.searchController.searchBar.endEditing(true)
             }
+        }
+        viewModel.stackViewisHidden = { [weak self] state in
+            self?.stackView.isHidden = state
+        }
+        viewModel.tableViewTopConstraint = { [weak self] float in
+            self?.tableViewTopConstraint.constant = CGFloat(float)
         }
     }
 
     private func bind(to source: CityListDataSource) {
-        source.selectedCity = viewModel.didSelectCity
+        source.selectedCity = viewModel.didSelectWeatherCityInList
         source.selectedCityToDelete = viewModel.didPressDeleteCity
     }
 
+    private func bind(to source: CitiesSearchDataSource) {
+        searchSource.selectedCity = viewModel.didSelectCityInSearchBar
+    }
+
     // MARK: - View actions
-
-    @IBAction func didPressAddButton(_ sender: Any) {
-        guard let city = cityTextField.text?.lowercased() else { return }
-        guard let country = countryTextField.text?.prefix(2).lowercased() else { return }
-
-        viewModel.didPressAddCity(nameCity: city, country: country)
-        hideStackView()
-        guard animator != nil else { return }
-        animator!.startAnimation()
-    }
-
-    @IBAction func didPressplusButton(_ sender: Any) {
-        showStackView()
-        guard animator != nil else { return }
-        animator!.startAnimation()
-    }
 
     @IBAction func didPressWeatherChanelButton(_ sender: Any) {
         guard urlString != nil else { return }
@@ -164,11 +147,9 @@ CLLocationManagerDelegate {
     }
 
     @IBAction func didPressUnitButton(_ sender: Any) {
-        if isCelsius {
-            isCelsius = false
+        if isCelsius { isCelsius = false
             viewModel.didPressUnitButton(unit: isCelsius)
-        } else {
-            isCelsius = true
+        } else { isCelsius = true
             viewModel.didPressUnitButton(unit: isCelsius)
         }
         viewModel.unitText = { [weak self] text in
@@ -183,6 +164,19 @@ CLLocationManagerDelegate {
 
     // MARK: - Private Files
 
+    fileprivate func searchBarCustom() {
+        let glassIcon = searchController.searchBar.searchTextField.leftView
+        glassIcon?.tintColor = UIColor.white
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.searchTextField.textColor = UIColor.white
+        searchController.searchBar.isTranslucent = true
+        searchController.searchBar.searchTextField.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+    }
+
     fileprivate func checkForAutorization() {
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
@@ -194,104 +188,53 @@ CLLocationManagerDelegate {
     }
 
     fileprivate func hideStackView() {
-        animator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 1.0) {
-            self.tableViewTopConstraint.constant = 40
-            self.plusButton.isHidden = false
-            self.stackView.isHidden = true
-            UIView.animate(withDuration: 2.0) {
-                self.view.layoutIfNeeded()
-            }
-        }
+        tableViewTopConstraint.constant = view.frame.minY
+        stackView.isHidden = true
+        tableView.isHidden = false
     }
 
     fileprivate func showStackView() {
-        animator = UIViewPropertyAnimator(duration: 2.0, dampingRatio: 1.0) {
-            self.tableViewTopConstraint.constant = 200
-            self.plusButton.isHidden = true
-            self.stackView.isHidden = false
-            UIView.animate(withDuration: 1.0) {
-                self.view.layoutIfNeeded()
-            }
-        }
-    }
-
-    /// HideKeyBoard from textField
-    @objc private func hideKeyBoard() {
-        cityTextField.resignFirstResponder()
-        countryTextField.resignFirstResponder()
-        addButton.resignFirstResponder()
-        tableView.resignFirstResponder()
-    }
-
-    fileprivate func settingNotificationCenter() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillChange(notification:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillChange(notification:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillChange(notification:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification,
-                                               object: nil)
-    }
-
-    fileprivate func keyboardWillHide() {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillShowNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillHideNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillChangeFrameNotification,
-                                                  object: nil)
-    }
-
-    fileprivate func tapGestureRecognizerCustom() {
-        let tap = UITapGestureRecognizer(target: self,
-                                         action: #selector(hideKeyBoard))
-        tap.cancelsTouchesInView = false
-
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc private func keyboardWillChange(notification: Notification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-
-        if notification.name == UIResponder.keyboardWillShowNotification ||
-            notification.name == UIResponder.keyboardWillChangeFrameNotification {
-            view.frame.origin.y = -(keyboardHeight/2)
-        } else {
-            view.frame.origin.y = 0
-        }
-    }
-
-    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        hideKeyBoard()
-        return true
-    }
-
-    fileprivate func elementCustom() {
-        addButton.layer.cornerRadius = 10
+        tableViewTopConstraint.constant = view.frame.height
+        stackView.isHidden = false
+        tableView.isHidden = true
     }
 
     fileprivate func navigationBarCustom() {
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
+        guard let bar = navigationController?.navigationBar else { return }
+        bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
         self.viewModel.navBarTitle = { [weak self] text in
             guard let self = self else { return }
             self.navigationItem.title = text
         }
-        let textAttributes = [
-                            NSAttributedString.Key.foregroundColor: UIColor.white,
-                            NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
-        guard let bar = navigationController?.navigationBar else { return }
-        bar.tintColor = .white
-        bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
+    }
+}
+
+// MARK: - SearchBar
+
+extension CityListViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        showStackView()
+        viewModel.getCities()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        hideStackView()
+        guard let text = searchController.searchBar.text?.lowercased() else { return }
+        viewModel.didSearchCities(with: text, numberOfLetters: text.count)
+        DispatchQueue.main.async {
+            self.searchController.isActive = false
+        }
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        showStackView()
+        guard let text = searchController.searchBar.text?.lowercased() else { return }
+        viewModel.didSearchCities(with: text, numberOfLetters: text.count)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        hideStackView()
     }
 }

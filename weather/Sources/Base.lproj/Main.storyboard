@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yZf-gw-rZW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yZf-gw-rZW">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +11,7 @@
         <!--City List View Controller-->
         <scene sceneID="7xF-y9-f8x">
             <objects>
-                <viewController storyboardIdentifier="CityListViewController" id="yZf-gw-rZW" customClass="CityListViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CityListViewController" id="yZf-gw-rZW" customClass="CityListViewController" customModule="SkyNow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bKa-fJ-ai0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,91 +19,45 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="Hnt-ps-oiH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xqM-4N-gUw">
-                                <rect key="frame" x="270" y="10" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="KX8-mi-osT"/>
-                                    <constraint firstAttribute="height" constant="40" id="eIO-Hm-Rcb"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="plus.circle.fill" catalog="system"/>
-                                <connections>
-                                    <action selector="didPressplusButton:" destination="yZf-gw-rZW" eventType="touchUpInside" id="7YO-Z3-h74"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="J29-Gm-7ES">
                                 <rect key="frame" x="141.5" y="349" width="37" height="37"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ICc-lZ-BnZ">
-                                <rect key="frame" x="10" y="10" width="300" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="mrx-HB-3wR">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="66"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the name of the city" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37Y-sV-Mvn">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="plN-7W-mbM"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Paris" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="003-c0-i3W">
-                                                <rect key="frame" x="0.0" y="32" width="300" height="34"/>
-                                                <color key="backgroundColor" red="0.97647058819999999" green="0.81172148359999996" blue="0.91914626430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="003-c0-i3W" firstAttribute="leading" secondItem="mrx-HB-3wR" secondAttribute="leading" id="9oL-6q-jfZ"/>
-                                            <constraint firstItem="37Y-sV-Mvn" firstAttribute="leading" secondItem="mrx-HB-3wR" secondAttribute="leading" id="Q5W-Ks-KfM"/>
-                                            <constraint firstAttribute="trailing" secondItem="003-c0-i3W" secondAttribute="trailing" id="bPM-Hz-2aK"/>
-                                            <constraint firstAttribute="trailing" secondItem="37Y-sV-Mvn" secondAttribute="trailing" id="fHp-He-WKV"/>
-                                            <constraint firstItem="37Y-sV-Mvn" firstAttribute="top" secondItem="mrx-HB-3wR" secondAttribute="top" id="ky0-ji-wXb"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BeK-OE-WvM">
-                                        <rect key="frame" x="0.0" y="76" width="300" height="64"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the first two letter of the country" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Bd-gS-k3E">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="6Oe-Gh-635"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="fr" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8KH-h4-kUh">
-                                                <rect key="frame" x="0.0" y="30" width="300" height="34"/>
-                                                <color key="backgroundColor" red="0.97647058819999999" green="0.81172148359999996" blue="0.91914626430000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UVf-7K-GQi">
-                                        <rect key="frame" x="0.0" y="150" width="300" height="30"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Txh-Jr-v2p">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
-                                                <state key="normal" title="Add this city to the list">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ojX-Zx-LDF">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CitiesSearchTableViewCell" id="9E0-fp-Msf" customClass="CitiesSearchTableViewCell" customModule="SkyNow" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="320" height="52.5"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9E0-fp-Msf" id="6en-l2-L6J">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2WT-3f-hQO">
+                                                            <rect key="frame" x="10" y="20" width="290" height="22.5"/>
+                                                            <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="2WT-3f-hQO" secondAttribute="trailing" constant="20" id="0mm-SO-XTS"/>
+                                                        <constraint firstItem="2WT-3f-hQO" firstAttribute="leading" secondItem="6en-l2-L6J" secondAttribute="leading" constant="10" id="KoU-jR-u1S"/>
+                                                        <constraint firstItem="2WT-3f-hQO" firstAttribute="top" secondItem="6en-l2-L6J" secondAttribute="top" constant="20" id="Vw1-EE-lyA"/>
+                                                        <constraint firstAttribute="bottom" secondItem="2WT-3f-hQO" secondAttribute="bottom" constant="10" id="rdX-Fw-FVM"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
-                                                    <action selector="didPressAddButton:" destination="yZf-gw-rZW" eventType="touchUpInside" id="gBl-dj-NOt"/>
+                                                    <outlet property="cityLabel" destination="2WT-3f-hQO" id="oQz-kS-DpT"/>
                                                 </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="qaj-Fl-0ye"/>
-                                        </constraints>
-                                    </stackView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="T36-ru-rTx">
@@ -111,7 +65,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="CityListTableViewCell" rowHeight="143" id="gF8-10-6oQ" customClass="CityListTableViewCell" customModule="weather" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="CityListTableViewCell" rowHeight="143" id="gF8-10-6oQ" customClass="CityListTableViewCell" customModule="SkyNow" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gF8-10-6oQ" id="v9B-dl-q77">
@@ -223,35 +177,29 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="xqM-4N-gUw" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" constant="10" id="Efv-Vl-gAv"/>
-                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="xqM-4N-gUw" secondAttribute="trailing" constant="10" id="Egj-0I-veE"/>
                             <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="Kha-0D-VSc" secondAttribute="trailing" id="Epy-Wo-GUD"/>
                             <constraint firstAttribute="trailing" secondItem="Hnt-ps-oiH" secondAttribute="trailing" id="IRm-vE-myX"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="top" secondItem="bKa-fJ-ai0" secondAttribute="top" id="KW6-Zx-Fza"/>
                             <constraint firstItem="Hnt-ps-oiH" firstAttribute="leading" secondItem="bKa-fJ-ai0" secondAttribute="leading" id="MbE-uc-xyJ"/>
                             <constraint firstItem="J29-Gm-7ES" firstAttribute="centerX" secondItem="bKa-fJ-ai0" secondAttribute="centerX" id="OTQ-q4-yTh"/>
                             <constraint firstItem="Ls2-k4-DPI" firstAttribute="bottom" secondItem="Kha-0D-VSc" secondAttribute="bottom" id="U1v-VH-PFe"/>
-                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="ICc-lZ-BnZ" secondAttribute="trailing" constant="10" id="Uj7-57-E7M"/>
-                            <constraint firstItem="ICc-lZ-BnZ" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" constant="10" id="VhP-vs-0JZ"/>
+                            <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="ICc-lZ-BnZ" secondAttribute="trailing" id="Uj7-57-E7M"/>
+                            <constraint firstItem="ICc-lZ-BnZ" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="VhP-vs-0JZ"/>
                             <constraint firstItem="Kha-0D-VSc" firstAttribute="top" secondItem="T36-ru-rTx" secondAttribute="bottom" id="Xkc-YX-q1X"/>
                             <constraint firstItem="T36-ru-rTx" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" constant="200" id="cPc-Db-ttK"/>
                             <constraint firstItem="T36-ru-rTx" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="cmU-bD-otp"/>
                             <constraint firstItem="Kha-0D-VSc" firstAttribute="leading" secondItem="Ls2-k4-DPI" secondAttribute="leading" id="ee6-5D-ODI"/>
                             <constraint firstAttribute="bottom" secondItem="Hnt-ps-oiH" secondAttribute="bottom" id="iul-k7-mNY"/>
                             <constraint firstItem="Ls2-k4-DPI" firstAttribute="trailing" secondItem="T36-ru-rTx" secondAttribute="trailing" id="wGU-v3-8U8"/>
+                            <constraint firstItem="T36-ru-rTx" firstAttribute="top" secondItem="ICc-lZ-BnZ" secondAttribute="bottom" id="wRy-F1-Qza"/>
                             <constraint firstItem="J29-Gm-7ES" firstAttribute="centerY" secondItem="T36-ru-rTx" secondAttribute="centerY" id="xEM-5o-GKN"/>
-                            <constraint firstItem="ICc-lZ-BnZ" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" constant="10" id="xhz-e3-EKv"/>
+                            <constraint firstItem="ICc-lZ-BnZ" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" id="xhz-e3-EKv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ls2-k4-DPI"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="J29-Gm-7ES" id="lU5-3P-zba"/>
-                        <outlet property="addButton" destination="Txh-Jr-v2p" id="4At-eN-tc6"/>
-                        <outlet property="cityLabel" destination="37Y-sV-Mvn" id="103-12-bzo"/>
-                        <outlet property="cityTextField" destination="003-c0-i3W" id="f19-Ug-j0y"/>
-                        <outlet property="countryLabel" destination="5Bd-gS-k3E" id="p0p-Ph-JK5"/>
-                        <outlet property="countryTextField" destination="8KH-h4-kUh" id="M9k-eW-4Cn"/>
-                        <outlet property="plusButton" destination="xqM-4N-gUw" id="0Sv-Ho-vrt"/>
+                        <outlet property="searchTableView" destination="ojX-Zx-LDF" id="ykT-EP-WiZ"/>
                         <outlet property="stackView" destination="ICc-lZ-BnZ" id="Igw-2z-FpQ"/>
                         <outlet property="tableView" destination="T36-ru-rTx" id="JZ8-7m-0iG"/>
                         <outlet property="tableViewTopConstraint" destination="cPc-Db-ttK" id="zm3-Es-slo"/>
@@ -266,7 +214,7 @@
         <!--Week View Controller-->
         <scene sceneID="jHG-sL-gTV">
             <objects>
-                <viewController storyboardIdentifier="WeekViewController" id="i63-TB-1Dd" customClass="WeekViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeekViewController" id="i63-TB-1Dd" customClass="WeekViewController" customModule="SkyNow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M4E-hW-Qg3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -288,7 +236,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeatherTableViewCell" rowHeight="161" id="c0o-gm-L1V" customClass="WeeekTableViewCell" customModule="weather" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WeatherTableViewCell" rowHeight="161" id="c0o-gm-L1V" customClass="WeeekTableViewCell" customModule="SkyNow" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="161"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="c0o-gm-L1V" id="md3-Ey-qrg">
@@ -470,7 +418,7 @@
         <!--Detail Day View Controller-->
         <scene sceneID="yk5-mg-hUM">
             <objects>
-                <viewController storyboardIdentifier="DetailDayViewController" id="qbV-wM-9Cr" customClass="DetailDayViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailDayViewController" id="qbV-wM-9Cr" customClass="DetailDayViewController" customModule="SkyNow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dQ2-zb-EHf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -511,7 +459,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailWeatherCollectionViewCell" id="WAX-HA-OeK" customClass="DetailDayCollectionViewCell" customModule="weather" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailWeatherCollectionViewCell" id="WAX-HA-OeK" customClass="DetailDayCollectionViewCell" customModule="SkyNow" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="-15" width="68" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="uxf-Nv-GMt">
@@ -563,7 +511,7 @@
                                         <rect key="frame" x="0.0" y="126" width="320" height="351"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailWeatherTableViewCell" rowHeight="161" id="YcL-lS-dHA" customClass="DetailDayTableViewCell" customModule="weather" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DetailWeatherTableViewCell" rowHeight="161" id="YcL-lS-dHA" customClass="DetailDayTableViewCell" customModule="SkyNow" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="320" height="161"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YcL-lS-dHA" id="4Wo-KB-Zgv">
@@ -753,7 +701,7 @@
         <!--Map View Controller-->
         <scene sceneID="Wwc-HC-ocz">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="hMc-WA-xf5" customClass="MapViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="hMc-WA-xf5" customClass="MapViewController" customModule="SkyNow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8N1-EO-Mpo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -789,7 +737,6 @@
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="48" height="64"/>
-        <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
         <image name="sky" width="1242" height="2688"/>
     </resources>
 </document>

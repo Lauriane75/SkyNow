@@ -9,13 +9,13 @@
 import CoreData
 
 protocol WeatherRepositoryType: class {
-
+    // MARK: - Get date from json file
+     func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void)
     // MARK: - Non unique city
     func containsCity(for city: CityVerif) -> Bool
 
     // MARK: - Get from openWeather API
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void)
-    func getWeatherId(nameCity: String, country: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
     func getWeatherWeek(idCity: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
     func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
 
@@ -51,6 +51,21 @@ final class WeatherRepository: WeatherRepositoryType {
     init(context: Context) {
         self.context = context
     }
+
+    // MARK: - Get data from json file
+
+    func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void) {
+         if let fileLocation = Bundle.main.url(forResource: "city.list", withExtension: "json") {
+             do {
+                 let data = try Data(contentsOf: fileLocation)
+                 let jsonDeconder = JSONDecoder()
+                 let dataFromJson = try jsonDeconder.decode([CityData].self, from: data)
+                 callback(dataFromJson)
+             } catch {
+                 onError(error as! String)
+             }
+         }
+     }
 
     // MARK: - Non unique city
 
@@ -88,24 +103,6 @@ final class WeatherRepository: WeatherRepositoryType {
     func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
 
         let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&=metric&appid=916792210f24330ed8b2f3f603669f4d"
-        guard let url = URL(string: stringUrl) else { return }
-        context.client.request(type: Weather.self,
-                               requestType: .GET,
-                               url: url,
-                               cancelledBy: token) { weather in
-                                switch weather {
-                                case .success(value: let weatherItem):
-                                    let result: Weather = weatherItem
-                                    callback(.success(value: result))
-                                case .error(error: let error):
-                                    onError(error.localizedDescription)
-                                }
-        }
-    }
-
-    func getWeatherId(nameCity: String, country: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
-        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?q=\(nameCity),\(country)&units=metric&APPID=916792210f24330ed8b2f3f603669f4d"
-
         guard let url = URL(string: stringUrl) else { return }
         context.client.request(type: Weather.self,
                                requestType: .GET,

@@ -183,7 +183,7 @@ class CityListViewModelTests: XCTestCase {
 
         viewModel.viewDidLoad()
         viewModel.viewWillAppear()
-        viewModel.didSelectCity(at: 0)
+        viewModel.didSelectSearchCity(at: 0)
 
         XCTAssertEqual(delegate.weatherListItem, self.weatherListItem)
     }
@@ -199,7 +199,7 @@ class CityListViewModelTests: XCTestCase {
 
         viewModel.viewDidLoad()
         viewModel.viewWillAppear()
-        viewModel.didSelectCity(at: 0)
+        viewModel.didSelectSearchCity(at: 0)
 
         XCTAssertEqual(delegate.weatherListItem, nil)
     }
