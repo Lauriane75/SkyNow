@@ -58,27 +58,15 @@ final class CityListViewModel {
 
     var visibleItems: (([WeatherListItem]) -> Void)?
 
+    var cityData: (([CityData]) -> Void)?
+
     var isLoading: ((Bool) -> Void)?
 
-    var labelText: ((String) -> Void)?
-
     var navBarTitle: ((String) -> Void)?
-
-    var cityText: ((String) -> Void)?
-
-    var cityPlaceHolder: ((String) -> Void)?
-
-    var countryText: ((String) -> Void)?
-
-    var countryPlaceHolder: ((String) -> Void)?
-
-    var addButtonText: ((String) -> Void)?
 
     var unitText: ((String) -> Void)?
 
     var urlString: ((String) -> Void)?
-
-    var cityData: (([CityData]) -> Void)?
 
     var selectedCityText: ((String) -> Void)?
 
@@ -91,13 +79,7 @@ final class CityListViewModel {
     // MARK: - Input
 
     func viewDidLoad() {
-        labelText?("Press + to add your first city")
         navBarTitle?("City list")
-        cityText?("Enter a city")
-        cityPlaceHolder?("Paris")
-        countryText?("Enter it's country")
-        countryPlaceHolder?("France")
-        addButtonText?("Add this city to the list")
         unitText?(" °F")
         urlString?("https://weather.com/")
         tableViewTopConstraint?(0)
@@ -152,7 +134,12 @@ final class CityListViewModel {
     func didPressUnitButton(unit: Bool) {
         unit ? self.unitText?(" °F") : self.unitText?(" °C")
         isCelsius = unit
-        fromDataBase ? delegate?.displayAlert(for: .errorService) : updateWeatherListItems()
+        if fromDataBase {
+            delegate?.displayAlert(for: .errorService)
+        } else {
+            updateCityID()
+            updateWeatherListItems()
+        }
     }
 
     // MARK: - City list
