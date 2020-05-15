@@ -18,12 +18,12 @@ final class WeatherCoordinator {
 
     private let screens: Screens
 
-     // MARK: - Initializer
+    // MARK: - Initializer
 
-     init(presenter: UINavigationController, screens: Screens) {
-         self.navigationController = presenter
-         self.screens = screens
-     }
+    init(presenter: UINavigationController, screens: Screens) {
+        self.navigationController = presenter
+        self.screens = screens
+    }
 }
 
 extension WeatherCoordinator: CoordinatorProtocol {

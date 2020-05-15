@@ -28,10 +28,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
 
         checkForAutorization()
-        navigationBarCustom()
-        elementCustom()
         mapViewCustom()
-        bind(to: viewModel)
         viewModel.viewDidLoad()
     }
 
@@ -39,39 +36,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         viewModel.viewWillAppear()
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillShowNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillHideNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillChangeFrameNotification,
-                                                  object: nil)
-    }
-
-    // MARK: - Private Functions
-
-    private func bind(to viewModel: MapViewModel) {
-//        viewModel.titleText = { [weak self] text in
-//            self?.titleLabel.text = text
-//        }
-    }
-
-    // MARK: - View actions
-
     // MARK: - Private Files
-
-    fileprivate func navigationBarCustom() {
-        guard let bar = navigationController?.navigationBar else { return }
-        bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        bar.shadowImage = UIImage()
-        bar.alpha = 0.0
-    }
-
-    fileprivate func elementCustom() {
-    }
 
     fileprivate func mapViewCustom() {
         mapView.register(PointAnnotation.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
