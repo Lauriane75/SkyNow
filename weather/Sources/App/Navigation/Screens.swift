@@ -76,6 +76,19 @@ extension Screens {
     }
 }
 
+// MARK: - Converter
+
+extension Screens {
+    func createConverterViewController(delegate: ConverterViewModelDelegate?) -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "ConverterViewController") as! ConverterViewController
+        let repository = ConverterRepository(client: context.client)
+        let viewModel = ConverterViewModel(repository: repository, delegate: delegate)
+        viewController.viewModel = viewModel
+        return viewController
+    }
+}
+
 // MARK: - Alert
 
 extension Screens {

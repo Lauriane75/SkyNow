@@ -71,6 +71,12 @@
 		F6D8074323ECBBE400C53355 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D8074223ECBBE400C53355 /* WeatherRepository.swift */; };
 		F6D8074523ECBBEE00C53355 /* WeekDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D8074423ECBBEE00C53355 /* WeekDataSource.swift */; };
 		F6D8074B23ED73C700C53355 /* WeeekTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D8074A23ED73C700C53355 /* WeeekTableViewCell.swift */; };
+		F6D81A1B246F458F003C6C2A /* ConverterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A1A246F458F003C6C2A /* ConverterCoordinator.swift */; };
+		F6D81A1E246F45F9003C6C2A /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A1D246F45F9003C6C2A /* ConverterViewController.swift */; };
+		F6D81A20246F4652003C6C2A /* ConverterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A1F246F4652003C6C2A /* ConverterViewModel.swift */; };
+		F6D81A22246F491C003C6C2A /* ConverterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A21246F491C003C6C2A /* ConverterRepository.swift */; };
+		F6D81A25246F498B003C6C2A /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A24246F498B003C6C2A /* Currency.swift */; };
+		F6D81A28246F4B96003C6C2A /* Rate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D81A27246F4B96003C6C2A /* Rate.swift */; };
 		F6DD30922461B2AD0021116F /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DD30902461B2A00021116F /* MockHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +174,12 @@
 		F6D8074223ECBBE400C53355 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		F6D8074423ECBBEE00C53355 /* WeekDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDataSource.swift; sourceTree = "<group>"; };
 		F6D8074A23ED73C700C53355 /* WeeekTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeekTableViewCell.swift; sourceTree = "<group>"; };
+		F6D81A1A246F458F003C6C2A /* ConverterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterCoordinator.swift; sourceTree = "<group>"; };
+		F6D81A1D246F45F9003C6C2A /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
+		F6D81A1F246F4652003C6C2A /* ConverterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewModel.swift; sourceTree = "<group>"; };
+		F6D81A21246F491C003C6C2A /* ConverterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterRepository.swift; sourceTree = "<group>"; };
+		F6D81A24246F498B003C6C2A /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		F6D81A27246F4B96003C6C2A /* Rate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rate.swift; sourceTree = "<group>"; };
 		F6DD30902461B2A00021116F /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -359,6 +371,7 @@
 				F6D8073023ECB4EF00C53355 /* Network */,
 				F6D8072A23ECB27500C53355 /* Navigation */,
 				F6D8073723ECB54500C53355 /* Alert Presenter */,
+				F6D81A1C246F45DF003C6C2A /* Converter Module */,
 				F66FB64E23F16BFE00749277 /* Weather Module  */,
 				F6610CEF243C83FC00032D4A /* Map Module */,
 			);
@@ -475,6 +488,7 @@
 				F6D8072B23ECB28B00C53355 /* Screens.swift */,
 				F6A2F84F23ED77B600A34B0A /* WeatherCoordinator.swift */,
 				F6610CED243C7F6F00032D4A /* MapCoordinator.swift */,
+				F6D81A1A246F458F003C6C2A /* ConverterCoordinator.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -528,6 +542,34 @@
 				F6D8073823ECB56300C53355 /* Alert.swift */,
 			);
 			path = "Alert Presenter";
+			sourceTree = "<group>";
+		};
+		F6D81A1C246F45DF003C6C2A /* Converter Module */ = {
+			isa = PBXGroup;
+			children = (
+				F6D81A26246F499B003C6C2A /* Repository */,
+				F6D81A23246F497E003C6C2A /* Model */,
+				F6D81A1D246F45F9003C6C2A /* ConverterViewController.swift */,
+				F6D81A1F246F4652003C6C2A /* ConverterViewModel.swift */,
+			);
+			path = "Converter Module";
+			sourceTree = "<group>";
+		};
+		F6D81A23246F497E003C6C2A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F6D81A24246F498B003C6C2A /* Currency.swift */,
+				F6D81A27246F4B96003C6C2A /* Rate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F6D81A26246F499B003C6C2A /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F6D81A21246F491C003C6C2A /* ConverterRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		F6DD30932461B2B00021116F /* Network */ = {
@@ -791,8 +833,10 @@
 				F6D8074323ECBBE400C53355 /* WeatherRepository.swift in Sources */,
 				F6D8073923ECB56300C53355 /* Alert.swift in Sources */,
 				F65A204A23F31A05005FC65F /* DetailDayTableViewCell.swift in Sources */,
+				F6D81A20246F4652003C6C2A /* ConverterViewModel.swift in Sources */,
 				F6D8074123ECBBC700C53355 /* WeekViewModel.swift in Sources */,
 				F6D8074523ECBBEE00C53355 /* WeekDataSource.swift in Sources */,
+				F6D81A28246F4B96003C6C2A /* Rate.swift in Sources */,
 				F65A204823F2C743005FC65F /* DetailDayCollectionDataSource.swift in Sources */,
 				F6D8073423ECB52300C53355 /* HTTPEngine.swift in Sources */,
 				F6D8072923ECB25800C53355 /* AppCoordinator.swift in Sources */,
@@ -801,6 +845,7 @@
 				F6A7CF1423F3F62300DE4D2E /* WeatherWeekItem.swift in Sources */,
 				F6D8074B23ED73C700C53355 /* WeeekTableViewCell.swift in Sources */,
 				F65A204323F2BEF9005FC65F /* Extension.swift in Sources */,
+				F6D81A25246F498B003C6C2A /* Currency.swift in Sources */,
 				F665DA18240D7D23000BBA59 /* CityListViewController.swift in Sources */,
 				F6A7CF0F23F3F4F300DE4D2E /* MapViewModel.swift in Sources */,
 				F6D8072C23ECB28B00C53355 /* Screens.swift in Sources */,
@@ -815,12 +860,14 @@
 				F665DA1C240D7FE2000BBA59 /* CityListTableViewCell.swift in Sources */,
 				F6984BF9243F64220022C158 /* Location.swift in Sources */,
 				F6D8070A23ECB17500C53355 /* weather.xcdatamodeld in Sources */,
+				F6D81A1B246F458F003C6C2A /* ConverterCoordinator.swift in Sources */,
 				F6D8072723ECB21700C53355 /* Context.swift in Sources */,
 				F6A7CF1123F3F50000DE4D2E /* MapViewController.swift in Sources */,
 				F6A2F85023ED77B600A34B0A /* WeatherCoordinator.swift in Sources */,
 				F671814923F1498E00D1ADB7 /* CoreDataStack.swift in Sources */,
 				F6610CEE243C7F6F00032D4A /* MapCoordinator.swift in Sources */,
 				F671814523F0AFA500D1ADB7 /* DetailDayViewModel.swift in Sources */,
+				F6D81A22246F491C003C6C2A /* ConverterRepository.swift in Sources */,
 				F660724E24548A0C00932568 /* WeatherListItem.swift in Sources */,
 				F6984BF7243F10E80022C158 /* PointAnnotation.swift in Sources */,
 				F638F2D9240FA5AF00A5F903 /* CityItem.swift in Sources */,
@@ -828,6 +875,7 @@
 				F6C541F8246D9B2E00E08D8B /* CitiesSearchTableViewCell.swift in Sources */,
 				F665DA16240D7C28000BBA59 /* CityListViewModel.swift in Sources */,
 				F6D8073F23ECBBB100C53355 /* WeekViewController.swift in Sources */,
+				F6D81A1E246F45F9003C6C2A /* ConverterViewController.swift in Sources */,
 				F671814723F0B01200D1ADB7 /* DetailDayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
