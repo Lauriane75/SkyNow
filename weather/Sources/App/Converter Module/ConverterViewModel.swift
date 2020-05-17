@@ -78,22 +78,25 @@ final class ConverterViewModel {
 
      // MARK: - Inputs
 
-     func viewDidLoad() {
-         self.titleLabel?("Enter a value and swipe your currency money")
-         self.resultText?("0.0 €")
-         self.placeHolderTextField?("Example: 100")
-         repository.getCurrency(callback: { [weak self] currency in
-             DispatchQueue.main.async {
-                guard let self = self else { return }
-                 self.initRequestRates(from: currency)
-                 self.initResultRates(from: currency)
-                 self.didSelectRequestRate(at: 0)
-                 self.didSelectResultRate(at: 0)
-              }
-             }, error: { [weak self] in
-                self?.delegate?.displayAlert(for: .errorService)
-         })
-     }
+    func viewDidLoad() {
+        self.titleLabel?("Enter a value and swipe your currency money")
+        self.resultText?("0.0 €")
+        self.placeHolderTextField?("Example: 100")
+        repository.getCurrency(callback: { (currency) in
+            switch currency {
+            case .success(value: let currencyItem):
+                self.initRequestRates(from: currencyItem)
+                self.initResultRates(from: currencyItem)
+                self.didSelectRequestRate(at: 0)
+                self.didSelectResultRate(at: 0)
+            case .error:
+                self.delegate?.displayAlert(for: .errorService)
+            }
+        }, onError: { [weak self] _ in
+            guard let self = self else { return }
+            self.delegate?.displayAlert(for: .errorService)
+        })
+    }
 
      func didTapInitialValuetextField(valueFromTextField: Double) {
          let value = valueFromTextField

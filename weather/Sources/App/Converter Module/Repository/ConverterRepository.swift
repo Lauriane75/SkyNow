@@ -46,4 +46,3 @@ final class ConverterRepository: ConverterRepositoryType {
         }
     }
 }
-

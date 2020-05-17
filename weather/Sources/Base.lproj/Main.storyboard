@@ -706,9 +706,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.94999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="gEI-ts-WE1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="mutedStandard" translatesAutoresizingMaskIntoConstraints="NO" id="DNr-cD-4aH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
@@ -716,13 +713,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DNr-cD-4aH" secondAttribute="trailing" id="1aO-5v-6Zr"/>
-                            <constraint firstAttribute="bottom" secondItem="gEI-ts-WE1" secondAttribute="bottom" id="4Mp-NT-zfi"/>
-                            <constraint firstItem="gEI-ts-WE1" firstAttribute="leading" secondItem="Qyq-tl-maK" secondAttribute="leading" id="BCR-PY-3x1"/>
                             <constraint firstItem="DNr-cD-4aH" firstAttribute="leading" secondItem="8N1-EO-Mpo" secondAttribute="leading" id="Hk0-iq-B6x"/>
-                            <constraint firstItem="gEI-ts-WE1" firstAttribute="top" secondItem="8N1-EO-Mpo" secondAttribute="top" id="PSl-cc-iMr"/>
                             <constraint firstItem="DNr-cD-4aH" firstAttribute="top" secondItem="8N1-EO-Mpo" secondAttribute="top" id="R3b-un-dRU"/>
                             <constraint firstAttribute="bottom" secondItem="DNr-cD-4aH" secondAttribute="bottom" id="lS1-DD-OBn"/>
-                            <constraint firstItem="Qyq-tl-maK" firstAttribute="trailing" secondItem="gEI-ts-WE1" secondAttribute="trailing" id="x0P-2B-Gl8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Qyq-tl-maK"/>
                     </view>
@@ -741,13 +734,141 @@
                     <view key="view" contentMode="scaleToFill" id="76B-b7-ChJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="Ygr-Gd-oAz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ggl-jJ-Kps">
+                                <rect key="frame" x="30" y="30" width="260" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGo-o5-Um0">
+                                        <rect key="frame" x="0.0" y="0.0" width="260" height="22"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6wL-fp-9wa">
+                                        <rect key="frame" x="0.0" y="30" width="260" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="didTypeValueInTextField:" destination="0xj-ir-gZH" eventType="editingDidEnd" id="N12-d8-wHD"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="6wL-fp-9wa" firstAttribute="height" secondItem="Ggl-jJ-Kps" secondAttribute="height" multiplier="0.53125" id="Urs-Vi-w5n"/>
+                                    <constraint firstItem="YGo-o5-Um0" firstAttribute="width" secondItem="Ggl-jJ-Kps" secondAttribute="width" id="WkK-t7-Rcu"/>
+                                    <constraint firstItem="6wL-fp-9wa" firstAttribute="width" secondItem="Ggl-jJ-Kps" secondAttribute="width" id="kcf-SM-SGt"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="R4O-iK-kro">
+                                <rect key="frame" x="30" y="114" width="260" height="170.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0o-ut-n9X">
+                                        <rect key="frame" x="110" y="0.0" width="40" height="34"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ly0-aU-zpj">
+                                        <rect key="frame" x="0.0" y="40" width="260" height="102.5"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From rate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTN-s9-Dal">
+                                        <rect key="frame" x="92" y="148.5" width="76" height="22"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ly0-aU-zpj" firstAttribute="height" secondItem="R4O-iK-kro" secondAttribute="height" multiplier="0.6" id="ZpH-zi-WoE"/>
+                                    <constraint firstItem="l0o-ut-n9X" firstAttribute="height" secondItem="R4O-iK-kro" secondAttribute="height" multiplier="0.2" id="slG-Zc-eIK"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="0Np-R1-AQv">
+                                <rect key="frame" x="30" y="304.5" width="260" height="170.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0j-fL-exM">
+                                        <rect key="frame" x="0.0" y="0.0" width="260" height="34"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oi7-1y-ed5">
+                                        <rect key="frame" x="0.0" y="38" width="260" height="102"/>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To rate" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tv-HR-uL0">
+                                        <rect key="frame" x="0.0" y="144" width="260" height="26.5"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oi7-1y-ed5" firstAttribute="height" secondItem="0Np-R1-AQv" secondAttribute="height" multiplier="0.6" id="7r4-4h-oAt"/>
+                                    <constraint firstItem="g0j-fL-exM" firstAttribute="width" secondItem="0Np-R1-AQv" secondAttribute="width" id="B2B-aK-Unf"/>
+                                    <constraint firstItem="g0j-fL-exM" firstAttribute="height" secondItem="0Np-R1-AQv" secondAttribute="height" multiplier="0.2" id="q1n-uO-Tad"/>
+                                    <constraint firstItem="9tv-HR-uL0" firstAttribute="width" secondItem="0Np-R1-AQv" secondAttribute="width" id="tEw-8A-DsJ"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uZH-lc-pnf">
+                                <rect key="frame" x="30" y="501" width="260" height="37"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usi-dv-9zX">
+                                        <rect key="frame" x="0.0" y="0.0" width="260" height="37"/>
+                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3uJ-1U-wIm" firstAttribute="trailing" secondItem="uZH-lc-pnf" secondAttribute="trailing" constant="30" id="01Y-rH-VKA"/>
+                            <constraint firstItem="R4O-iK-kro" firstAttribute="top" secondItem="Ggl-jJ-Kps" secondAttribute="bottom" constant="20" id="0eN-gm-Ogf"/>
+                            <constraint firstItem="0Np-R1-AQv" firstAttribute="leading" secondItem="3uJ-1U-wIm" secondAttribute="leading" constant="30" id="4gE-EL-dmG"/>
+                            <constraint firstItem="3uJ-1U-wIm" firstAttribute="bottom" secondItem="uZH-lc-pnf" secondAttribute="bottom" constant="30" id="7u3-sH-M3G"/>
+                            <constraint firstItem="3uJ-1U-wIm" firstAttribute="trailing" secondItem="Ggl-jJ-Kps" secondAttribute="trailing" constant="30" id="8kH-aj-c4p"/>
+                            <constraint firstAttribute="bottom" secondItem="Ygr-Gd-oAz" secondAttribute="bottom" id="CAf-N6-f0Q"/>
+                            <constraint firstAttribute="trailing" secondItem="0Np-R1-AQv" secondAttribute="trailing" constant="30" id="HhM-WA-7SB"/>
+                            <constraint firstItem="R4O-iK-kro" firstAttribute="height" secondItem="3uJ-1U-wIm" secondAttribute="height" multiplier="0.3" id="Mh8-7B-m28"/>
+                            <constraint firstItem="Ygr-Gd-oAz" firstAttribute="trailing" secondItem="76B-b7-ChJ" secondAttribute="trailing" id="PGy-Wt-J6D"/>
+                            <constraint firstItem="Ggl-jJ-Kps" firstAttribute="top" secondItem="3uJ-1U-wIm" secondAttribute="top" constant="30" id="QCA-UZ-UFF"/>
+                            <constraint firstItem="uZH-lc-pnf" firstAttribute="height" secondItem="3uJ-1U-wIm" secondAttribute="height" multiplier="0.065" id="Ucb-91-qfv"/>
+                            <constraint firstItem="Ygr-Gd-oAz" firstAttribute="leading" secondItem="76B-b7-ChJ" secondAttribute="leading" id="Y4H-Lb-Ivx"/>
+                            <constraint firstAttribute="trailing" secondItem="R4O-iK-kro" secondAttribute="trailing" constant="30" id="bOD-yi-Se0"/>
+                            <constraint firstItem="R4O-iK-kro" firstAttribute="leading" secondItem="3uJ-1U-wIm" secondAttribute="leading" constant="30" id="cb0-D2-bfd"/>
+                            <constraint firstItem="Ggl-jJ-Kps" firstAttribute="height" secondItem="Ygr-Gd-oAz" secondAttribute="height" multiplier="0.112676" id="dUY-A1-Pao"/>
+                            <constraint firstItem="0Np-R1-AQv" firstAttribute="top" secondItem="R4O-iK-kro" secondAttribute="bottom" constant="20" id="eCL-r1-MCM"/>
+                            <constraint firstItem="Ygr-Gd-oAz" firstAttribute="top" secondItem="76B-b7-ChJ" secondAttribute="top" id="iad-Se-Z1V"/>
+                            <constraint firstItem="uZH-lc-pnf" firstAttribute="leading" secondItem="3uJ-1U-wIm" secondAttribute="leading" constant="30" id="mif-rJ-PWf"/>
+                            <constraint firstItem="Ggl-jJ-Kps" firstAttribute="leading" secondItem="3uJ-1U-wIm" secondAttribute="leading" constant="30" id="pc7-3w-sxw"/>
+                            <constraint firstItem="0Np-R1-AQv" firstAttribute="height" secondItem="3uJ-1U-wIm" secondAttribute="height" multiplier="0.3" id="rhq-dV-EE2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3uJ-1U-wIm"/>
                     </view>
+                    <connections>
+                        <outlet property="amountLabel" destination="YGo-o5-Um0" id="uPR-2F-P6A"/>
+                        <outlet property="fromLabel" destination="l0o-ut-n9X" id="bQI-hZ-o5j"/>
+                        <outlet property="fromPickerView" destination="ly0-aU-zpj" id="aBQ-hD-0Xl"/>
+                        <outlet property="fromRateLabel" destination="iTN-s9-Dal" id="EKO-Ho-QCW"/>
+                        <outlet property="resultLabel" destination="usi-dv-9zX" id="WoD-U4-p2l"/>
+                        <outlet property="textField" destination="6wL-fp-9wa" id="UXN-EN-hR1"/>
+                        <outlet property="toLabel" destination="g0j-fL-exM" id="vm2-qD-LH6"/>
+                        <outlet property="toPickerView" destination="oi7-1y-ed5" id="DyK-sA-O2x"/>
+                        <outlet property="toRateLabel" destination="9tv-HR-uL0" id="FpH-Uf-hhe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="END-H6-hmN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="6hs-4h-VeB">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="0xj-ir-gZH" id="H2N-zY-anX"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2928" y="119"/>
+            <point key="canvasLocation" x="2926.875" y="118.30985915492958"/>
         </scene>
     </scenes>
     <resources>
