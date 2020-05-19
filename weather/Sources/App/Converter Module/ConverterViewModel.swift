@@ -60,6 +60,8 @@ final class ConverterViewModel {
 
       // MARK: - Outputs
 
+     var navBarText: ((String) -> Void)?
+
      var titleLabel: ((String) -> Void)?
 
      var resultText: ((String) -> Void)?
@@ -79,6 +81,7 @@ final class ConverterViewModel {
      // MARK: - Inputs
 
     func viewDidLoad() {
+        self.navBarText?("Converter")
         self.titleLabel?("Enter a value and swipe your currency money")
         self.resultText?("0.0 €")
         self.placeHolderTextField?("Example: 100")
@@ -107,7 +110,7 @@ final class ConverterViewModel {
          guard index < requestRates.count else { return }
          let rate = requestRates[index]
 
-         selectedRequestRateValue?("Taux de conversion : \(Double(round(100*rate.value)/100))")
+         selectedRequestRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
 
          valueOfRequestPickerView = rate.value
          currencyOfRequestPickerView = rate.key
@@ -119,7 +122,7 @@ final class ConverterViewModel {
          guard index < resultRates.count else { return }
          let rate = resultRates[index]
 
-         selectedResultRateValue?("Taux de conversion : \(Double(round(100*rate.value)/100))")
+         selectedResultRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
 
          valueOfResultPickerView = rate.value
          currencyOfResultPickerView = rate.key

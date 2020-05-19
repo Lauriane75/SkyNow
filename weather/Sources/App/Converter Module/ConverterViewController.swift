@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConverterViewController: UIViewController {
+class ConverterViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - Outlets
 
@@ -42,6 +42,7 @@ class ConverterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         elementCustom()
+        tapGestureRecognizer()
 
         fromPickerView.dataSource = fromDataSource
         fromPickerView.delegate = fromDataSource
@@ -59,6 +60,9 @@ class ConverterViewController: UIViewController {
     // MARK: - Private Functions
 
     private func bind(to viewModel: ConverterViewModel) {
+        viewModel.navBarText = { [weak self] text in
+            self?.navigationController?.navigationItem.title = text
+        }
         viewModel.titleLabel = { [weak self] text in
             self?.amountLabel.text = text
         }
@@ -111,22 +115,25 @@ class ConverterViewController: UIViewController {
 
     // MARK: - View actions
 
-    @IBAction func didTypeValueInTextField(_ sender: Any) {
-        guard textField.text != nil else { return }
-        guard let textValue = textField.text else {
-            return
-        }
-        viewModel.didTapInitialValuetextField(valueFromTextField: Double(textValue)!)
-    }
-
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         textField.resignFirstResponder()
+    }
 
+    @IBAction func didPressValidateValue(_ sender: Any) {
+        guard let textValue = textField.text else { return }
+        viewModel.didTapInitialValuetextField(valueFromTextField: Double(textValue)!)
     }
 
     // MARK: - Fileprivate Functions
 
+    fileprivate func tapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+
     fileprivate func elementCustom() {
+        fromPickerView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        toPickerView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         resultLabel.layer.cornerRadius = 20
         fromPickerView.layer.cornerRadius = 20
         toPickerView.layer.cornerRadius = 20
