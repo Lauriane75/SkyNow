@@ -76,24 +76,24 @@ class ConverterViewController: UIViewController, UITextFieldDelegate {
                 self?.textField.placeholder = text
             }
         }
-        viewModel.visibleRequestCurrencyName = { [weak self] rates in
+        viewModel.fromRateText = { [weak self] rates in
             DispatchQueue.main.async {
                 self?.fromDataSource.update(with: rates)
                 self?.fromPickerView.reloadAllComponents()
             }
         }
-        viewModel.visibleResultCurrencyName = { [weak self] rates in
+        viewModel.toRateText = { [weak self] rates in
             DispatchQueue.main.async {
                 self?.toDataSource.update(with: rates)
                 self?.toPickerView.reloadAllComponents()
             }
         }
-        viewModel.selectedRequestRateValue = { [weak self] text in
+        viewModel.fromRateValue = { [weak self] text in
             DispatchQueue.main.async {
                 self?.fromRateLabel.text = text
             }
         }
-        viewModel.selectedResultRateValue = { [weak self] text in
+        viewModel.toRateValue = { [weak self] text in
             DispatchQueue.main.async {
                 self?.toRateLabel.text = text
             }
@@ -106,11 +106,11 @@ class ConverterViewController: UIViewController, UITextFieldDelegate {
     }
 
     private func bind(to dataSource: FromPickerViewDataSource) {
-        dataSource.didSelectItemAt = viewModel.didSelectRequestRate
+        dataSource.didSelectItemAt = viewModel.didSelectRateFrom
     }
 
     private func bind(to dataSource: ToPickerViewDataSource) {
-        dataSource.didSelectItemAt = viewModel.didSelectResultRate
+        dataSource.didSelectItemAt = viewModel.didSelectRateTo
     }
 
     // MARK: - View actions
@@ -119,9 +119,9 @@ class ConverterViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
     }
 
-    @IBAction func didPressValidateValue(_ sender: Any) {
+    @IBAction func didPressValidateValueButton(_ sender: Any) {
         guard let textValue = textField.text else { return }
-        viewModel.didTapInitialValuetextField(valueFromTextField: Double(textValue)!)
+        viewModel.didPressvalidateValue(valueFromTextField: Double(textValue)!)
     }
 
     // MARK: - Fileprivate Functions

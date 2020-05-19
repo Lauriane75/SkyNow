@@ -20,22 +20,22 @@ final class ConverterViewModel {
 
     private weak var delegate: ConverterViewModelDelegate?
 
-    var valueOfRequestPickerView: Double = 1
-    var valueOfResultPickerView: Double = 1
-    var currencyOfRequestPickerView: String = ""
-    var currencyOfResultPickerView: String = ""
+    var fromPickerViewRateValue: Double = 1
+    var toPickerViewRateValue: Double = 1
+    var fromPickerViewCurrencyText: String = ""
+    var toPickerViewCurrencyText: String = ""
 
-    private var resultRates: [Rate] = [] {
+    private var ratesTo: [Rate] = [] {
         didSet {
-            let keys: [String] = resultRates.map { $0.key }.sorted(by: { $0 < $1 })
-            self.visibleResultCurrencyName?(keys)
+            let keys: [String] = ratesTo.map { $0.key }.sorted(by: { $0 < $1 })
+            self.toRateText?(keys)
         }
     }
 
-    private var requestRates: [Rate] = [] {
+    private var ratesFrom: [Rate] = [] {
         didSet {
-            let keys: [String] = requestRates.map { $0.key }.sorted(by: { $0 < $1 })
-            self.visibleRequestCurrencyName?(keys)
+            let keys: [String] = ratesFrom.map { $0.key }.sorted(by: { $0 < $1 })
+            self.fromRateText?(keys)
         }
     }
 
@@ -58,27 +58,27 @@ final class ConverterViewModel {
         self.delegate = delegate
     }
 
-      // MARK: - Outputs
+    // MARK: - Outputs
 
-     var navBarText: ((String) -> Void)?
+    var navBarText: ((String) -> Void)?
 
-     var titleLabel: ((String) -> Void)?
+    var titleLabel: ((String) -> Void)?
 
-     var resultText: ((String) -> Void)?
+    var resultText: ((String) -> Void)?
 
-     var visibleRequestCurrencyName: (([String]) -> Void)?
+    var fromRateText: (([String]) -> Void)?
 
-     var visibleResultCurrencyName: (([String]) -> Void)?
+    var toRateText: (([String]) -> Void)?
 
-     var selectedRequestRateValue: ((String) -> Void)?
+    var fromRateValue: ((String) -> Void)?
 
-     var selectedResultRateValue: ((String) -> Void)?
+    var toRateValue: ((String) -> Void)?
 
-     var initialValuetextField: ((String) -> Void)?
+    var initialValuetextField: ((String) -> Void)?
 
-     var placeHolderTextField: ((String) -> Void)?
+    var placeHolderTextField: ((String) -> Void)?
 
-     // MARK: - Inputs
+    // MARK: - Inputs
 
     func viewDidLoad() {
         self.navBarText?("Converter")
@@ -88,10 +88,10 @@ final class ConverterViewModel {
         repository.getCurrency(callback: { (currency) in
             switch currency {
             case .success(value: let currencyItem):
-                self.initRequestRates(from: currencyItem)
-                self.initResultRates(from: currencyItem)
-                self.didSelectRequestRate(at: 0)
-                self.didSelectResultRate(at: 0)
+                self.initRatesFrom(from: currencyItem)
+                self.initRatesTo(to: currencyItem)
+                self.didSelectRateFrom(at: 0)
+                self.didSelectRateTo(at: 0)
             case .error:
                 self.delegate?.displayAlert(for: .errorService)
             }
@@ -101,74 +101,75 @@ final class ConverterViewModel {
         })
     }
 
-     func didTapInitialValuetextField(valueFromTextField: Double) {
-         let value = valueFromTextField
-         valueToConvert = value
-     }
+    func didPressvalidateValue(valueFromTextField: Double) {
+        let value = valueFromTextField
+        valueToConvert = value
+    }
 
-     func didSelectRequestRate(at index: Int) {
-         guard index < requestRates.count else { return }
-         let rate = requestRates[index]
+    func didSelectRateFrom(at index: Int) {
+        guard index < ratesFrom.count else { return }
+        let rate = ratesFrom[index]
 
-         selectedRequestRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
+        fromRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
 
-         valueOfRequestPickerView = rate.value
-         currencyOfRequestPickerView = rate.key
+        fromPickerViewRateValue = rate.value
+        fromPickerViewCurrencyText = rate.key
 
-         convert()
-     }
+        convert()
+    }
 
-     func didSelectResultRate(at index: Int) {
-         guard index < resultRates.count else { return }
-         let rate = resultRates[index]
+    func didSelectRateTo(at index: Int) {
+        guard index < ratesTo.count else { return }
+        let rate = ratesTo[index]
 
-         selectedResultRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
+        toRateValue?("Conversion rate : \(Double(round(100*rate.value)/100))")
 
-         valueOfResultPickerView = rate.value
-         currencyOfResultPickerView = rate.key
+        toPickerViewRateValue = rate.value
+        toPickerViewCurrencyText = rate.key
 
-         convert()
-     }
+        convert()
+    }
 
-     // MARK: - Private Functions
+    // MARK: - Private Functions
 
-     private func initRequestRates(from currency: Currency) {
-         let sorted = currency.rates.sorted { $0.key < $1.key }
-         requestRates = sorted.map { Rate(key: $0.key, value: $0.value) }
-         if let value = requestRates.first?.value {
-             selectedRequestRateValue?("\(Double(round(100*value)/100))")
-         }
-     }
+    private func initRatesFrom(from currency: Currency) {
+        let sorted = currency.rates.sorted { $0.key < $1.key }
+        ratesFrom = sorted.map { Rate(key: $0.key, value: $0.value) }
+        if let value = ratesFrom.first?.value {
+            fromRateValue?("\(Double(round(100*value)/100))")
+        }
+    }
 
-     private func initResultRates(from currency: Currency) {
-         let sorted = currency.rates.sorted { $0.key < $1.key }
-         resultRates = sorted.map { Rate(key: $0.key, value: $0.value) }
-         if let value = resultRates.first?.value {
-             selectedResultRateValue?("\(Double(round(100*value)/100))")
-         }
-     }
+    private func initRatesTo(to currency: Currency) {
+        let sorted = currency.rates.sorted { $0.key < $1.key }
+        ratesTo = sorted.map { Rate(key: $0.key, value: $0.value) }
+        if let value = ratesTo.first?.value {
+            toRateValue?("\(Double(round(100*value)/100))")
+        }
+    }
 
-     private func convertedValue(valueToConvert: Double, topRateValue: Double, bottomRateValue: Double) -> Double {
-         return (valueToConvert / topRateValue) * bottomRateValue
-     }
+    private func convertedValue(valueToConvert: Double, topRateValue: Double, bottomRateValue: Double) -> Double {
+        return (valueToConvert / topRateValue) * bottomRateValue
+    }
 
-     // MARK: - Private Files
+    // MARK: - Private Files
 
-     fileprivate func convert() {
-         let convertedValueResult = convertedValue(valueToConvert: valueToConvert,
-                                                   topRateValue: valueOfRequestPickerView,
-                                                   bottomRateValue: valueOfResultPickerView)
-         if currencyOfResultPickerView == "EUR" && valueOfResultPickerView == 1 {
-             result = ("\(Double(round(100*convertedValueResult)/100)) €")
-         }
-         if currencyOfResultPickerView == "USD" {
-             result = ("$ \(Double(round(100*convertedValueResult)/100))")
-         }
-         if currencyOfResultPickerView == "GBP" {
-             result = ("£ \(Double(round(100*convertedValueResult)/100))")
-         }
-         if currencyOfResultPickerView == "JPY" {
-             result = ("\(Double(round(100*convertedValueResult)/100)) ¥")
-         }
-     }
+    fileprivate func convert() {
+        let convertedValueResult = (Double(round(100 * convertedValue(valueToConvert: valueToConvert,
+                                                  topRateValue: fromPickerViewRateValue,
+                                                  bottomRateValue: toPickerViewRateValue) / 100)))
+
+        if toPickerViewCurrencyText == "EUR" && toPickerViewRateValue == 1 {
+            result = ("\(convertedValueResult) €")
+        }
+        if toPickerViewCurrencyText == "USD" {
+            result = ("$ \(convertedValueResult)")
+        }
+        if toPickerViewCurrencyText == "GBP" {
+            result = ("£ \(convertedValueResult)")
+        }
+        if toPickerViewCurrencyText == "JPY" {
+            result = ("\(convertedValueResult) ¥")
+        }
+    }
 }
