@@ -39,6 +39,9 @@ class MockRepository: WeatherRepositoryType {
         }
     }
 
+    func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void) {
+    }
+
     // MARK: - Get from network
 
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void) {

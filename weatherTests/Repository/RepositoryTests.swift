@@ -35,22 +35,6 @@ class RepositoryTests: XCTestCase {
                                           nameCity: "Paris",
                                           temperature: "15 °C")
 
-    func test_Given_Repository_When_getWeatherId_Then_DataIsCorrectlyReturned() {
-        let context = Context(client: client, stack: stack)
-        let repository = WeatherRepository(context: context)
-
-        repository.getWeatherId(nameCity: cityItem.nameCity, country: cityItem.country, callback: { (weather) in
-            switch weather {
-            case .success(value: let weatherId):
-                XCTAssertEqual("\(weatherId.city.id)", self.weatherListItem.id)
-            case .error(error: let error):
-                print(error)
-            }
-        }, onError: { _ in
-            print("error")
-        })
-    }
-
     func test_Given_Repository_When_getWeatherList_Then_DataIsCorrectlyReturned() {
         let context = Context(client: client, stack: stack)
         let repository = WeatherRepository(context: context)
