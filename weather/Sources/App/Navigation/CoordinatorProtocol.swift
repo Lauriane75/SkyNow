@@ -36,7 +36,6 @@ extension MainCoordinator {
     func createTabBar(_ tabBarController: UITabBarController) {
         let weatherItem = createNavigationController(withTitle: "Weather", image: UIImage(systemName: "sun.min.fill")!)
         let mapItem = createNavigationController(withTitle: "Map", image: UIImage(systemName: "mappin.and.ellipse")!)
-        let converterItem = createNavigationController(withTitle: "Converter", image: UIImage(systemName: "dollarsign.circle.fill")!)
 
         let weatherCoordinator = WeatherCoordinator(presenter: weatherItem, screens: screens)
         coordinators.append(weatherCoordinator)
@@ -46,11 +45,7 @@ extension MainCoordinator {
         coordinators.append(mapCoordinator)
         mapCoordinator.start()
 
-        let converterCoordinator = ConverterCoordinator(presenter: converterItem, screens: screens)
-        coordinators.append(converterCoordinator)
-        converterCoordinator.start()
-
-        let rootViewControllers = [weatherItem, mapItem, converterItem]
+        let rootViewControllers = [weatherItem, mapItem]
         tabBarController.setViewControllers(rootViewControllers, animated: false)
     }
 

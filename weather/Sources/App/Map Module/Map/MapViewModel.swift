@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import StoreKit
 
 protocol MapViewModelDelegate: class {
     func displayAlert(for type: AlertType)
@@ -30,13 +29,15 @@ final class MapViewModel {
 
     // MARK: - Outputs
 
+//    var titleText: ((String) -> Void)?
+
     // MARK: - Inputs
 
     func viewDidLoad() {
     }
 
     func viewWillAppear() {
-    SKStoreReviewController.requestReview()
+
     }
 
     // MARK: - Private Files

@@ -51,7 +51,6 @@ CLLocationManagerDelegate {
         super.viewDidLoad()
         checkForAutorization()
         navigationBarCustom()
-        navigationItem.searchController = searchController
 
         tableView.delegate = source
         tableView.dataSource = source
@@ -74,6 +73,7 @@ CLLocationManagerDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         viewModel.viewDidAppear()
+        AppStoreReviewManager .requestReviewIfAppropriate()
     }
 
     // MARK: - Private Functions
@@ -102,6 +102,7 @@ CLLocationManagerDelegate {
                 }
             }
         }
+
         viewModel.cityData = { [weak self] items in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -208,6 +209,7 @@ CLLocationManagerDelegate {
             guard let self = self else { return }
             self.navigationItem.title = text
         }
+        navigationItem.searchController = searchController
     }
 }
 
