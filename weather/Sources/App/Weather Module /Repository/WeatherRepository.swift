@@ -7,10 +7,11 @@
 //
 
 import CoreData
+import UIKit
 
 protocol WeatherRepositoryType: class {
     // MARK: - Get date from json file
-     func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void)
+    func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void)
     // MARK: - Non unique city
     func containsCity(for city: CityVerif) -> Bool
 
@@ -41,7 +42,6 @@ final class WeatherRepository: WeatherRepositoryType {
 
     private let token = Token()
     private let context: Context
-
     private var cityObjects: [CityObject] = []
     private var weatherListObjects: [WeatherListObject] = []
     private var weatherWeekObjects: [WeatherWeekObject] = []
@@ -86,6 +86,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
         let stringUrl = "http://api.openweathermap.org/data/2.5/group?id=\(cityId)&units=metric&appid=916792210f24330ed8b2f3f603669f4d"
         guard let url = URL(string: stringUrl) else { return }
+
         context.client.request(type: WeatherList.self,
                                requestType: .GET,
                                url: url,

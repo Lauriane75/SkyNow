@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     // MARK: - Outlet
 
@@ -26,8 +26,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        checkForAutorization()
+        mapView.delegate = self
         mapViewCustom()
         viewModel.viewDidLoad()
     }
@@ -44,16 +43,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let poi = MKPointAnnotation()
         poi.coordinate = CLLocationCoordinate2D(latitude: 48.866667, longitude: 2.333333)
         mapView.addAnnotation(poi)
-    }
-
-    fileprivate func checkForAutorization() {
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

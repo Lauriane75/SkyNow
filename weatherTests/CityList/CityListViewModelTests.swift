@@ -30,6 +30,9 @@ class MockCityListViewModelDelegate: CityListViewModelDelegate {
 
 class CityListViewModelTests: XCTestCase {
 
+    var latitude: String?
+    var longitude: String?
+
     let weatherList = WeatherList(list:
         [List(id: 2988507,
               sys: Sys(country: "fr"),
@@ -53,23 +56,57 @@ class CityListViewModelTests: XCTestCase {
 
     let delegate = MockCityListViewModelDelegate()
 
-    func test_Given_ViewModel_When_viewWillAppear_WithNetwork_Then_ReactiveVariableAreDisplayed() {
+    func test_Given_ViewModel_When_viewDidLoad_WithNetwork_Then_ReactiveVariableAreDisplayed() {
 
         let viewModel = CityListViewModel(repository: repository, delegate: delegate)
 
-        let expectation = self.expectation(description: "Diplayed unitText")
-
-        viewModel.unitText = { text in
-            XCTAssertEqual(text, " °F")
-            expectation.fulfill()
-        }
+        let expectation1 = self.expectation(description: "Diplayed navBarTitle")
+        let expectation2 = self.expectation(description: "Diplayed unitText")
+        let expectation3 = self.expectation(description: "Diplayed urlString")
+        let expectation4 = self.expectation(description: "Diplayed tableViewTopConstraint")
 
         viewModel.navBarTitle = { text in
             XCTAssertEqual(text, "City list")
+            expectation1.fulfill()
+        }
+
+        viewModel.unitText = { text in
+            XCTAssertEqual(text, " °F")
+            expectation2.fulfill()
+        }
+
+        viewModel.urlString = { text in
+            XCTAssertEqual(text, "https://weather.com/")
+            expectation3.fulfill()
+        }
+
+        viewModel.tableViewTopConstraint = { text in
+            XCTAssertEqual(text, 0)
+            expectation4.fulfill()
         }
 
         viewModel.viewDidLoad()
         viewModel.viewWillAppear()
+
+        waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func test_Given_When_Then() {
+        self.latitude = "48.7333"
+        self.longitude = "2.2167"
+
+        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+
+        let expectation = self.expectation(description: "Diplayed visibleItems")
+
+        viewModel.visibleItems = { item in
+            XCTAssertEqual(item, [self.weatherListItem])
+            expectation.fulfill()
+        }
+
+        viewModel.viewDidLoad()
+        viewModel.viewWillAppear()
+        viewModel.viewDidAppear()
 
         waitForExpectations(timeout: 1.0, handler: nil)
     }
@@ -82,17 +119,17 @@ class CityListViewModelTests: XCTestCase {
 
         let viewModel = CityListViewModel(repository: repository, delegate: delegate)
 
-//        let expectation = self.expectation(description: "Diplayed visibleItems")
+        let expectation = self.expectation(description: "Diplayed visibleItems")
 
         viewModel.visibleItems = { items in
-//            XCTAssertEqual(items, self.repository.weatherListItems)
-//            expectation.fulfill()
+            XCTAssertEqual(items, self.repository.weatherListItems)
+            expectation.fulfill()
         }
 
         viewModel.viewDidLoad()
         viewModel.viewWillAppear()
 
-//        waitForExpectations(timeout: 1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func test_Given_ViewModel_When_ViewWillAppear_WithNetwork_isLoadingIsDiplayed() {
@@ -103,21 +140,21 @@ class CityListViewModelTests: XCTestCase {
 
         let viewModel = CityListViewModel(repository: repository, delegate: delegate)
 
-//        let expectation = self.expectation(description: "Displayed activityIndicator network")
+        let expectation = self.expectation(description: "Displayed activityIndicator network")
 
         var counter = 0
 
         viewModel.isLoading = { state in
             if counter == 1 {
-//                XCTAssertFalse(state)
-//                expectation.fulfill()
+                XCTAssertFalse(state)
+                expectation.fulfill()
             }
             counter += 1
         }
         viewModel.viewDidLoad()
         viewModel.viewWillAppear()
 
-//        waitForExpectations(timeout: 1.0, handler: nil)
+        waitForExpectations(timeout: 1.0, handler: nil)
     }
 
     func test_Given_ViewModel_When_ViewWillAppear_WithoutNetwork_isLoadingIsDiplayed() {
@@ -136,34 +173,35 @@ class CityListViewModelTests: XCTestCase {
         viewModel.viewWillAppear()
     }
 
-    func test_Given_ViewModel_When_didSelectCity_WithNetwork_Then_expectedResult() {
+//    func test_Given_ViewModel_When_didSelectCity_WithNetwork_Then_expectedResult() {
+//
+//        repository.weatherList = weatherList
+//        repository.cityItems = [self.cityItem]
+//
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//
+//        viewModel.viewDidLoad()
+//        viewModel.viewWillAppear()
+//        viewModel.didSelectSearchCity(at: 0)
+//
+//        XCTAssertEqual(delegate.weatherListItem, self.weatherListItem)
+//    }
 
-        repository.weatherList = weatherList
-        repository.cityItems = [self.cityItem]
-
-        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
-
-        viewModel.viewDidLoad()
-        viewModel.viewWillAppear()
-        viewModel.didSelectWeatherCityInList(at: 0)
-
-    }
-
-    func test_Given_ViewModel_When_didSelectCity_WithoutNetwork_Then_expectedResult() {
-
-        repository.isSuccess = false
-        repository.saveWeatherListItem(weatherListItem: weatherListItem)
-        repository.weatherList = nil
-        repository.cityItems = [self.cityItem]
-
-        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
-
-        viewModel.viewDidLoad()
-        viewModel.viewWillAppear()
-        viewModel.didSelectWeatherCityInList(at: 0)
-
-        XCTAssertEqual(delegate.weatherListItem, nil)
-    }
+//    func test_Given_ViewModel_When_didSelectCity_WithoutNetwork_Then_expectedResult() {
+//
+//        repository.isSuccess = false
+//        repository.saveWeatherListItem(weatherListItem: weatherListItem)
+//        repository.weatherList = nil
+//        repository.cityItems = [self.cityItem]
+//
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//
+//        viewModel.viewDidLoad()
+//        viewModel.viewWillAppear()
+//        viewModel.didSelectSearchCity(at: 0)
+//
+//        XCTAssertEqual(delegate.weatherListItem, nil)
+//    }
 
     func test_Given_ViewModel_When_didPressDelete_WithNetwork_Then_expectedResult() {
 
@@ -209,39 +247,42 @@ class CityListViewModelTests: XCTestCase {
         viewModel.didPressDeleteCity(at: 0)
     }
 
-    func test_Given_ViewModel_When__WithNetwork_Then_expectedResult() {
+//    func test_Given_ViewModel_When_didPressAdd_WithNetwork_Then_expectedResult() {
+//
+//        repository.weatherList = weatherList
+//        repository.cityItems = [self.cityItem]
+//
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//
+//        viewModel.didPressAddCity(nameCity: "paris", country: "fr")
+//
+//        viewModel.visibleItems = { items in
+//            XCTAssertEqual(items, [self.weatherListItem])
+//        }
+//
+//        var counter = 0
+//        viewModel.isLoading = { state in
+//            if counter == 1 {
+//                XCTAssertEqual(state, false)
+//            }
+//            counter += 1
+//        }
+//
+//        viewModel.viewWillAppear()
+//    }
 
-        repository.weatherList = weatherList
-        repository.cityItems = [self.cityItem]
-
-        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
-
-        viewModel.visibleItems = { items in
-            XCTAssertEqual(items, [self.weatherListItem])
-        }
-
-        var counter = 0
-        viewModel.isLoading = { state in
-            if counter == 1 {
-                XCTAssertEqual(state, false)
-            }
-            counter += 1
-        }
-
-        viewModel.viewWillAppear()
-    }
-
-    func test_Given_ViewModel_When__WithSameCity_Then_Alert() {
-
-        repository.weatherListItems = [self.weatherListItem]
-        repository.sameCity = true
-        repository.cityItems = [self.cityItem]
-
-        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
-        viewModel.viewDidLoad()
-        viewModel.viewWillAppear()
+//    func test_Given_ViewModel_When_didPressAdd_WithSameCity_Then_Alert() {
+//
+//        repository.weatherListItems = [self.weatherListItem]
+//        repository.sameCity = true
+//        repository.cityItems = [self.cityItem]
+//
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//        viewModel.viewDidLoad()
+//        viewModel.viewWillAppear()
+//        viewModel.didPressAddCity(nameCity: "paris", country: "fr")
 //        XCTAssertEqual(delegate.alert, .nonUniqueCity)
-    }
+//    }
 
     func test_Given_ViewModel_When_didPressUnitButtonC_Then_UnitIsDisplayed() {
 
@@ -276,10 +317,20 @@ class CityListViewModelTests: XCTestCase {
         viewModel.viewDidLoad()
     }
 
-    func test_Given_ViewModel_When_NoCitySaved_Then_Alert() {
-        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//    func test_Given_ViewModel_When_NoCitySaved_Then_Alert() {
+//
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//
+//        viewModel.viewDidLoad()
+//        viewModel.viewWillAppear()
+//
+//        XCTAssertEqual(delegate.alert, .addCity)
+//    }
 
-        viewModel.viewDidLoad()
-        viewModel.viewWillAppear()
-    }
+//    func test_Given_ViewModel_When_DidPressAddCity_WithEmptyString_Then_AlertWrongSpeeling() {
+//        let viewModel = CityListViewModel(repository: repository, delegate: delegate)
+//        viewModel.didPressAddCity(nameCity: "", country: "")
+//
+//        XCTAssertEqual(delegate.alert, .wrongSpelling)
+//    }
 }

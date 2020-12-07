@@ -27,9 +27,7 @@ final class CityListViewModel {
 
     private var fromDataBase = false
 
-    private var longitude: String?
-
-    private var latitude: String?
+    private var userLocation: UserLocation?
 
     private var weatherListItems: [WeatherListItem] = [] {
         didSet {
@@ -158,35 +156,35 @@ final class CityListViewModel {
     }
 
     func didSendUserLocation(latitude: String, longitude: String) {
-        self.latitude = latitude
-        self.longitude = longitude
+        self.userLocation = UserLocation(latitude: latitude, longitude: longitude)
     }
 
     // MARK: - Private Functions
 
     fileprivate func updateWeatherLocation() {
-        guard latitude != nil && longitude != nil else { return }
-        DispatchQueue.main.async {
-            self.repository.getLocationWeather(latitude: self.latitude!, longitude: self.longitude!, callback: { (weather) in
-                switch weather {
-                case .success(value: let weatherLocation):
+        guard userLocation != nil else { return }
+        self.repository.getLocationWeather(latitude: userLocation!.latitude, longitude: userLocation!.longitude, callback: { (weather) in
+            switch weather {
+            case .success(value: let weatherLocation):
+                DispatchQueue.main.async {
                     let id = "\(weatherLocation.city.id)"
                     let name = weatherLocation.city.name
                     let country = weatherLocation.city.country
+
                     let cityVerif = CityVerif(nameCity: name, country: country)
 
                     if self.containsCity(cityVerif: cityVerif) == false {
                         let cityItem = CityItem(id: id, nameCity: name, country: country)
                         self.updateList(cityItem: cityItem)
                     }
-                case .error(error: let error):
-                    print(error)
                 }
-            }, onError: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.displayAlert(for: .userlocation)
-            })
-        }
+            case .error(error: let error):
+                print(error)
+            }
+        }, onError: { [weak self] _ in
+            guard let self = self else { return }
+            self.delegate?.displayAlert(for: .userlocation)
+        })
     }
 
     fileprivate func containsCity(cityVerif: CityVerif) -> Bool {
