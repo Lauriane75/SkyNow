@@ -9,11 +9,14 @@
 import UIKit
 import MapKit
 import CoreLocation
+import AVKit
 
 class CityListViewController: UIViewController,
 CLLocationManagerDelegate {
 
     // MARK: - Outlet
+
+    @IBOutlet weak var videoBackgroundUIView: UIView!
 
     @IBOutlet weak var stackView: UIStackView!
 
@@ -33,6 +36,12 @@ CLLocationManagerDelegate {
 
     var viewModel: CityListViewModel!
 
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+
+    var playerLooper: AVPlayerLooper?
+    var queuePlayer: AVQueuePlayer?
+
     private var source = CityListDataSource()
 
     private var searchSource = CitiesSearchDataSource()
@@ -49,6 +58,8 @@ CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpBackgroundVideo()
+
         checkForAutorization()
         navigationBarCustom()
 
@@ -210,6 +221,34 @@ CLLocationManagerDelegate {
             self.navigationItem.title = text
         }
         navigationItem.searchController = searchController
+    }
+
+    fileprivate func setUpBackgroundVideo() {
+        let url = viewModel.setUpVideo()
+        guard url != nil else { return }
+        let item = AVPlayerItem(url: url!)
+        videoPlayer = AVPlayer(playerItem: item)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+        // adjust the size and frame
+        videoPlayerLayer?.frame = CGRect(x: 0,
+                                         y: 0,
+                                         width: self.view.frame.size.width,
+                                         height: self.view.frame.size.height)
+
+        // add it to the view and play it
+        guard videoPlayer != nil else { return }
+        videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer!.playImmediately(atRate: 1)
+        videoBackgroundUIView.layer.insertSublayer(videoPlayerLayer!, at: 0)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
+        videoPlayer!.seek(to: CMTime.zero)
+        videoPlayer!.play()
+        self.videoPlayer?.isMuted = true
+    }
+
+    @objc func playerItemEnded() {
+        videoPlayer!.seek(to: CMTime.zero)
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class DetailDayViewController: UIViewController {
 
@@ -21,6 +22,9 @@ class DetailDayViewController: UIViewController {
 
     var viewModel: DetailDayViewModel!
 
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+
     private lazy var collectionDataSource = DetailDayCollectionDataSource()
 
     private var tableViewDatasource = DetailDayTableViewDataSource()
@@ -31,6 +35,7 @@ class DetailDayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpBackgroundVideo()
 
         collectionView.dataSource = collectionDataSource
         tableView.delegate = tableViewDatasource
@@ -66,5 +71,33 @@ class DetailDayViewController: UIViewController {
                               NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
         guard let bar = navigationController?.navigationBar else { return }
         bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
+    }
+
+    fileprivate func setUpBackgroundVideo() {
+        let url = viewModel.setUpVideo()
+        guard url != nil else { return }
+        let item = AVPlayerItem(url: url!)
+        videoPlayer = AVPlayer(playerItem: item)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+        // adjust the size and frame
+        videoPlayerLayer?.frame = CGRect(x: 0,
+                                         y: 0,
+                                         width: self.view.frame.size.width,
+                                         height: self.view.frame.size.height)
+
+        // add it to the view and play it
+        guard videoPlayer != nil else { return }
+        videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer!.playImmediately(atRate: 1)
+        view.layer.insertSublayer(videoPlayerLayer!, at: 0)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
+        videoPlayer!.seek(to: CMTime.zero)
+        videoPlayer!.play()
+        self.videoPlayer?.isMuted = true
+    }
+
+    @objc func playerItemEnded() {
+        videoPlayer!.seek(to: CMTime.zero)
     }
 }

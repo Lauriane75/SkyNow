@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import AVKit
 
 class WeekViewController: UIViewController {
 
     // MARK: - Outlet
+    @IBOutlet weak var videoBackgroundUIView: UIView!
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var tableView: UITableView!
@@ -20,17 +22,18 @@ class WeekViewController: UIViewController {
     // MARK: - Properties
 
     var viewModel: WeekViewModel!
-
     private var source = WeekDataSource()
-
     private var isCelsius = true
-
     private var urlString: String?
+
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
 
     // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpBackgroundVideo()
 
         tableView.delegate = source
         tableView.dataSource = source
@@ -113,5 +116,33 @@ class WeekViewController: UIViewController {
                               NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
         guard let bar = navigationController?.navigationBar else { return }
         bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
+    }
+
+    fileprivate func setUpBackgroundVideo() {
+        let url = viewModel.setUpVideo()
+        guard url != nil else { return }
+        let item = AVPlayerItem(url: url!)
+        videoPlayer = AVPlayer(playerItem: item)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+        // adjust the size and frame
+        videoPlayerLayer?.frame = CGRect(x: 0,
+                                         y: 0,
+                                         width: self.view.frame.size.width,
+                                         height: self.view.frame.size.height)
+
+        // add it to the view and play it
+        guard videoPlayer != nil else { return }
+        videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer!.playImmediately(atRate: 1)
+        videoBackgroundUIView.layer.insertSublayer(videoPlayerLayer!, at: 0)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
+        videoPlayer!.seek(to: CMTime.zero)
+        videoPlayer!.play()
+        self.videoPlayer?.isMuted = true
+    }
+
+    @objc func playerItemEnded() {
+        videoPlayer!.seek(to: CMTime.zero)
     }
 }

@@ -26,6 +26,7 @@
 		F665DA18240D7D23000BBA59 /* CityListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665DA17240D7D23000BBA59 /* CityListViewController.swift */; };
 		F665DA1A240D7E91000BBA59 /* CityListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665DA19240D7E90000BBA59 /* CityListDataSource.swift */; };
 		F665DA1C240D7FE2000BBA59 /* CityListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665DA1B240D7FE2000BBA59 /* CityListTableViewCell.swift */; };
+		F666AAF9257E86AA00B56566 /* sky-cloud-sunny.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */; };
 		F671814523F0AFA500D1ADB7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814423F0AFA500D1ADB7 /* DetailDayViewModel.swift */; };
 		F671814723F0B01200D1ADB7 /* DetailDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814623F0B01200D1ADB7 /* DetailDayViewController.swift */; };
 		F671814923F1498E00D1ADB7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814823F1498E00D1ADB7 /* CoreDataStack.swift */; };
@@ -102,6 +103,7 @@
 		F665DA17240D7D23000BBA59 /* CityListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewController.swift; sourceTree = "<group>"; };
 		F665DA19240D7E90000BBA59 /* CityListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListDataSource.swift; sourceTree = "<group>"; };
 		F665DA1B240D7FE2000BBA59 /* CityListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListTableViewCell.swift; sourceTree = "<group>"; };
+		F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sky-cloud-sunny.mp4"; sourceTree = "<group>"; };
 		F671814423F0AFA500D1ADB7 /* DetailDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewModel.swift; sourceTree = "<group>"; };
 		F671814623F0B01200D1ADB7 /* DetailDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewController.swift; sourceTree = "<group>"; };
 		F671814823F1498E00D1ADB7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -268,6 +270,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		F666AAF4257E732300B56566 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */,
+			);
+			name = Video;
+			path = "Vidéo";
+			sourceTree = "<group>";
+		};
 		F66FB64E23F16BFE00749277 /* Weather Module  */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +295,7 @@
 		F671814223F0AF4D00D1ADB7 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				F666AAF4257E732300B56566 /* Video */,
 				F6D8073023ECB4EF00C53355 /* Network */,
 				F6D8072A23ECB27500C53355 /* Navigation */,
 				F6D8073723ECB54500C53355 /* Alert Presenter */,
@@ -562,6 +574,7 @@
 				F6D8070F23ECB17700C53355 /* LaunchScreen.storyboard in Resources */,
 				F6D8070C23ECB17700C53355 /* Assets.xcassets in Resources */,
 				F6C4531A23FD3797009A0940 /* README.md in Resources */,
+				F666AAF9257E86AA00B56566 /* sky-cloud-sunny.mp4 in Resources */,
 				F6D8070723ECB17500C53355 /* Main.storyboard in Resources */,
 				F6A5DA7124878A18001A79CE /* city.list.json in Resources */,
 			);
