@@ -875,7 +875,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "-com.lauriane.haydari.weather";
 				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -898,7 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauriane.haydari.weather;
 				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";

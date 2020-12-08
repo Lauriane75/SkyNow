@@ -15,37 +15,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky" translatesAutoresizingMaskIntoConstraints="NO" id="Qzx-nr-Klk">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SkyNow" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Si4-U2-kpJ">
-                                <rect key="frame" x="57" y="144" width="300" height="65"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skynow-logo" translatesAutoresizingMaskIntoConstraints="NO" id="zzd-WH-YSW">
+                                <rect key="frame" x="132" y="373" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="65" id="QI6-FK-lF4"/>
-                                    <constraint firstAttribute="width" constant="300" id="hVN-22-ZLy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather-logo" translatesAutoresizingMaskIntoConstraints="NO" id="bxa-Kj-mGE">
-                                <rect key="frame" x="157" y="257" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="9Jf-qE-VEz"/>
-                                    <constraint firstAttribute="width" constant="100" id="ghO-Om-ITb"/>
+                                    <constraint firstAttribute="height" constant="150" id="2LX-bi-ktd"/>
+                                    <constraint firstAttribute="width" constant="150" id="jSr-7b-y3G"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Si4-U2-kpJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0sL-GI-12J"/>
-                            <constraint firstAttribute="top" secondItem="Qzx-nr-Klk" secondAttribute="top" id="57l-hb-asm"/>
-                            <constraint firstItem="bxa-Kj-mGE" firstAttribute="top" secondItem="Si4-U2-kpJ" secondAttribute="bottom" constant="48" id="RR0-Ns-Z8b"/>
-                            <constraint firstAttribute="trailing" secondItem="Qzx-nr-Klk" secondAttribute="trailing" id="RbC-sh-o90"/>
-                            <constraint firstItem="Qzx-nr-Klk" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="S2a-NY-ef7"/>
-                            <constraint firstItem="Qzx-nr-Klk" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="cJf-xx-DD6"/>
-                            <constraint firstItem="bxa-Kj-mGE" firstAttribute="centerX" secondItem="Si4-U2-kpJ" secondAttribute="centerX" id="dIX-65-ekx"/>
-                            <constraint firstItem="Si4-U2-kpJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="fDZ-sJ-RTp"/>
+                            <constraint firstItem="zzd-WH-YSW" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="b5K-J0-QxE"/>
+                            <constraint firstItem="zzd-WH-YSW" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="dMj-5o-atc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -56,7 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sky" width="1242" height="2688"/>
-        <image name="weather-logo" width="591" height="591"/>
+        <image name="skynow-logo" width="1024" height="1024"/>
     </resources>
 </document>

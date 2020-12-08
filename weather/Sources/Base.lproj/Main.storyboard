@@ -709,6 +709,7 @@
                         <outlet property="collectionView" destination="cWS-0X-Z1r" id="QNm-9G-bGN"/>
                         <outlet property="descriptionLabel" destination="VhJ-9H-8PV" id="DrK-3S-yQu"/>
                         <outlet property="tableView" destination="m2v-am-DZT" id="LVI-aT-3p0"/>
+                        <outlet property="videoBackgroundUIView" destination="HZs-Nx-eyq" id="vl2-bJ-QZS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k9Z-OM-yyf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

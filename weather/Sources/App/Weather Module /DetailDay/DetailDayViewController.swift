@@ -13,6 +13,7 @@ class DetailDayViewController: UIViewController {
 
     // MARK: - Outlet
 
+    @IBOutlet weak var videoBackgroundUIView: UIImageView!
     @IBOutlet private weak var cityLabel: UILabel!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var tableView: UITableView!
@@ -89,7 +90,7 @@ class DetailDayViewController: UIViewController {
         guard videoPlayer != nil else { return }
         videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
         videoPlayer!.playImmediately(atRate: 1)
-        view.layer.insertSublayer(videoPlayerLayer!, at: 0)
+        videoBackgroundUIView.layer.insertSublayer(videoPlayerLayer!, at: 0)
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
         videoPlayer!.seek(to: CMTime.zero)
