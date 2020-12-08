@@ -92,6 +92,12 @@ final class CityListViewModel {
         updateWeatherListItems()
     }
 
+    func setUpVideo() -> URL? {
+        let bundlePath = Bundle.main.path(forResource: "sky-cloud-sunny", ofType: "mp4")
+        guard bundlePath != nil else { return nil }
+        return URL(fileURLWithPath: bundlePath!)
+    }
+
     // MARK: - Searh bar
 
     func getCities() {

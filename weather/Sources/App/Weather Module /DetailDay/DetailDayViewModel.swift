@@ -40,6 +40,12 @@ final class DetailDayViewModel {
         updateWeatherOfTheDay()
     }
 
+    func setUpVideo() -> URL? {
+        let bundlePath = Bundle.main.path(forResource: "sky-cloud-sunny", ofType: "mp4")
+        guard bundlePath != nil else { return nil }
+        return URL(fileURLWithPath: bundlePath!)
+    }
+
     // MARK: - Private Files
 
     fileprivate func updateWeatherOfTheDay() {

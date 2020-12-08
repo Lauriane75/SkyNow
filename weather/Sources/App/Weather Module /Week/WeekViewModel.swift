@@ -14,7 +14,6 @@ protocol WeekViewModelDelegate: class {
 }
 
 final class WeekViewModel {
-
     // MARK: - Properties
 
     private let repository: WeatherRepositoryType
@@ -76,6 +75,12 @@ final class WeekViewModel {
         unit ? self.unitText?(" °F") : self.unitText?(" °C")
         isCelsius = unit
         fromDataBase ? delegate?.displayWeatherAlert(for: .errorService) : self.updateWeekWeatherItems()
+    }
+
+    func setUpVideo() -> URL? {
+        let bundlePath = Bundle.main.path(forResource: "sky-cloud-sunny", ofType: "mp4")
+        guard bundlePath != nil else { return nil }
+        return URL(fileURLWithPath: bundlePath!)
     }
 
     // MARK: - Private Files
