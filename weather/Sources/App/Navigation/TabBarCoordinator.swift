@@ -12,7 +12,7 @@ protocol CoordinatorProtocol {
     func start()
 }
 
-class MainCoordinator {
+class TabBarCoordinator {
 
     // MARK: - Properties
 
@@ -31,7 +31,7 @@ class MainCoordinator {
 
 // MARK: - Creating tabs
 
-extension MainCoordinator {
+extension TabBarCoordinator {
 
     func createTabBar(_ tabBarController: UITabBarController) {
         let weatherItem = createNavigationController(withTitle: "Weather", image: UIImage(systemName: "sun.min.fill")!)

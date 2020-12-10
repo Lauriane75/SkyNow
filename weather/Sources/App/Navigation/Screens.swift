@@ -19,6 +19,18 @@ final class Screens {
     }
 }
 
+// MARK: - LaunchScreen
+
+extension Screens {
+    func createLaunchScreenViewController(delegate: LaunchScreenViewModelDelegate?) -> UIViewController {
+        let viewController = storyboard.instantiateViewController(withIdentifier:
+            "LaunchScreenViewController") as! LaunchScreenViewController
+        let viewModel = LaunchScreenViewModel(delegate: delegate)
+        viewController.viewModel = viewModel
+        return viewController
+    }
+}
+
 // MARK: - Select
 
 extension Screens {

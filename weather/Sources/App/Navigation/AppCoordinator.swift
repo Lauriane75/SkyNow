@@ -14,19 +14,16 @@ class AppCoordinator {
 
     private unowned var appDelegate: AppDelegate
 
-    private let context: Context
-
     private var screens: Screens
 
-    private var mainCoordinator: MainCoordinator
+    private var tabBarCoordinator: TabBarCoordinator
 
     // MARK: - Initializer
 
-    init(appDelegate: AppDelegate, context: Context, screens: Screens, mainCoordinator: MainCoordinator) {
+    init(appDelegate: AppDelegate, screens: Screens, tabBarCoordinator: TabBarCoordinator) {
         self.appDelegate = appDelegate
-        self.context = context
         self.screens = screens
-        self.mainCoordinator = mainCoordinator
+        self.tabBarCoordinator = tabBarCoordinator
     }
 }
 
@@ -37,7 +34,7 @@ extension AppCoordinator {
     // MARK: - Start
 
     func start() {
-        let tabBarController = mainCoordinator.tabBarController
+        let tabBarController = tabBarCoordinator.tabBarController
 
         appDelegate.window = UIWindow(frame: UIScreen.main.bounds)
         appDelegate.window!.rootViewController = tabBarController
@@ -48,6 +45,6 @@ extension AppCoordinator {
         if ProcessInfo.processInfo.environment["IS_RUNNING_UNIT_TESTS"] == "YES" {
             return
         }
-        mainCoordinator.createTabBar(tabBarController)
+        tabBarCoordinator.createTabBar(tabBarController)
     }
 }
