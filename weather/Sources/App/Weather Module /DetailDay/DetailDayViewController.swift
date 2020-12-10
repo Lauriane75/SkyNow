@@ -90,6 +90,7 @@ class DetailDayViewController: UIViewController {
         guard videoPlayer != nil else { return }
         videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
         videoPlayer!.playImmediately(atRate: 1)
+        videoPlayerLayer?.videoGravity = .resizeAspectFill
         videoBackgroundUIView.layer.insertSublayer(videoPlayerLayer!, at: 0)
 
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
