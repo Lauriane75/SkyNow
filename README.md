@@ -48,7 +48,7 @@ With the help of the screen, it creates, presents and dismisses `UIViewControlle
 The coordinator can, create and run child coordinators too using the function start(). 
 The entire logic will be encapsulated by delegation for the rest of the navigation.
 
-In this app there is one 'AppCoordinator' and on 'MainCoordinator' which coordinates from the mainTabBar then 2 separate coordinators which coordinate each screen:
+In this app there is one 'AppCoordinator' and on 'TabBarCoordinator' which coordinates from the mainTabBar then 2 separate coordinators which coordinate each screen:
 WeatherCoordinator for the screen view weather
 MapCoordinator for the screen view map
 

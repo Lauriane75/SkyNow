@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yZf-gw-rZW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QoK-ZM-VXn">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -8,6 +8,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Launch Screen View Controller-->
+        <scene sceneID="Zle-fN-5JS">
+            <objects>
+                <viewController storyboardIdentifier="LaunchScreenViewController" id="QoK-ZM-VXn" customClass="LaunchScreenViewController" customModule="SkyNow" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NKu-ma-1Gm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skynow-logo" translatesAutoresizingMaskIntoConstraints="NO" id="04k-d4-yeH">
+                                <rect key="frame" x="85" y="209" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="IFe-W9-ITc"/>
+                                    <constraint firstAttribute="width" constant="150" id="iv1-AO-pgp"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="04k-d4-yeH" firstAttribute="centerX" secondItem="NKu-ma-1Gm" secondAttribute="centerX" id="UeH-gm-ZuH"/>
+                            <constraint firstItem="04k-d4-yeH" firstAttribute="centerY" secondItem="NKu-ma-1Gm" secondAttribute="centerY" id="Uqa-G9-a4E"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ajg-1n-w4p"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="04k-d4-yeH" id="a7S-l9-FSl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SXy-2Z-0w8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-717" y="112"/>
+        </scene>
         <!--City List View Controller-->
         <scene sceneID="7xF-y9-f8x">
             <objects>
@@ -750,5 +781,6 @@
         <image name="background" width="506" height="898"/>
         <image name="chevron.right" catalog="system" width="48" height="64"/>
         <image name="p" width="16" height="16"/>
+        <image name="skynow-logo" width="1024" height="1024"/>
     </resources>
 </document>
