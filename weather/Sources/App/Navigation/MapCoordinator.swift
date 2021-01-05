@@ -18,11 +18,14 @@ final class MapCoordinator {
 
     private let screens: Screens
 
+    let weatherCoordinator: WeatherCoordinator
+
     // MARK: - Initializer
 
     init(presenter: UINavigationController, screens: Screens) {
         self.navigationController = presenter
         self.screens = screens
+        self.weatherCoordinator = WeatherCoordinator(presenter: presenter, screens: screens)
     }
 }
 
@@ -39,6 +42,11 @@ extension MapCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: false)
     }
 
+//    private func showCityList(cityId: String) {
+//        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
+//        navigationController.viewControllers = [viewController]
+//    }
+
     private func showAlert(for type: AlertType) {
         let alert = screens.createAlertView(for: type)
         navigationController.visibleViewController?.present(alert, animated: true, completion: nil)
@@ -46,8 +54,16 @@ extension MapCoordinator: CoordinatorProtocol {
 }
 
 extension MapCoordinator: MapViewModelDelegate {
+    func goToCityListView(cityId: String) {
+        weatherCoordinator.start()
+    }
 
     func displayAlert(for type: AlertType) {
         showAlert(for: type)
+    }
+}
+
+extension MapCoordinator: CityListViewModelDelegate {
+    func didSelectCity(weatherListItem: WeatherListItem) {
     }
 }

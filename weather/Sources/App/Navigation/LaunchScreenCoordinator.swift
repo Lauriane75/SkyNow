@@ -45,6 +45,7 @@ final class LaunchScreenCoordinator {
 
     private func showLaunchScreenAnimate() {
         let viewController = screens.createLaunchScreenViewController(delegate: self)
+        viewController.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(viewController, animated: false)
     }
 

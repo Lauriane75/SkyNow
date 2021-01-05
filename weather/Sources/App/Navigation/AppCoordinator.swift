@@ -35,6 +35,10 @@ extension AppCoordinator {
 
     func start() {
         let tabBarController = tabBarCoordinator.tabBarController
+        let tabBar = UITabBar.appearance()
+        tabBar.tintColor = UIColor(named: "blue-skynow")
+        tabBar.barTintColor = .white
+        tabBar.unselectedItemTintColor = .darkGray
 
         appDelegate.window = UIWindow(frame: UIScreen.main.bounds)
         appDelegate.window!.rootViewController = tabBarController

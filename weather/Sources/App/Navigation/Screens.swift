@@ -34,12 +34,12 @@ extension Screens {
 // MARK: - Select
 
 extension Screens {
-    func createSelectViewController(delegate: CityListViewModelDelegate?) -> UIViewController {
+    func createSelectViewController(delegate: CityListViewModelDelegate?, cityId: String) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "CityListViewController") as! CityListViewController
         let repository = WeatherRepository(context: context)
         let viewModel = CityListViewModel(repository: repository,
-                                          delegate: delegate)
+                                          delegate: delegate, cityId: cityId)
         viewController.viewModel = viewModel
         return viewController
     }

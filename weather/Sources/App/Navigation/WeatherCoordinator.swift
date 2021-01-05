@@ -31,13 +31,13 @@ extension WeatherCoordinator: CoordinatorProtocol {
     // MARK: - Coodinator
 
     func start() {
-        showCityList()
+        showCityList(cityId: "")
     }
 
     // MARK: - Create viewControllers
 
-    private func showCityList() {
-        let viewController = screens.createSelectViewController(delegate: self)
+    private func showCityList(cityId: String) {
+        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
         navigationController.pushViewController(viewController, animated: false)
     }
 
@@ -75,7 +75,7 @@ extension WeatherCoordinator: WeekViewModelDelegate {
 
     func displayWeatherAlert(for type: AlertType) {
         DispatchQueue.main.async {
-            self.showCityList()
+            self.showCityList(cityId: "")
             self.showAlert(for: type)
         }
     }
@@ -89,5 +89,8 @@ extension WeatherCoordinator: DetailDayViewModelDelegate {
 }
 
 extension WeatherCoordinator: MapViewModelDelegate {
+    func goToCityListView(cityId: String) {
+        showCityList(cityId: cityId)
+    }
 
 }

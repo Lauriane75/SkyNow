@@ -17,6 +17,7 @@ protocol WeatherRepositoryType: class {
 
     // MARK: - Get from openWeather API
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void)
+    func getWeatherCityFromMap(lat: String, long: String, callback: @escaping (Result<CityFromMap>) -> Void, onError: @escaping (String) -> Void)
     func getWeatherWeek(idCity: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
     func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
 
@@ -45,6 +46,7 @@ final class WeatherRepository: WeatherRepositoryType {
     private var cityObjects: [CityObject] = []
     private var weatherListObjects: [WeatherListObject] = []
     private var weatherWeekObjects: [WeatherWeekObject] = []
+    private let apiKey = "916792210f24330ed8b2f3f603669f4d"
 
     // MARK: - Initializer
 
@@ -55,17 +57,17 @@ final class WeatherRepository: WeatherRepositoryType {
     // MARK: - Get data from json file
 
     func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void) {
-         if let fileLocation = Bundle.main.url(forResource: "city.list", withExtension: "json") {
-             do {
-                 let data = try Data(contentsOf: fileLocation)
-                 let jsonDeconder = JSONDecoder()
-                 let dataFromJson = try jsonDeconder.decode([CityData].self, from: data)
-                 callback(dataFromJson)
-             } catch {
-                 onError(error as! String)
-             }
-         }
-     }
+        if let fileLocation = Bundle.main.url(forResource: "city.list", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: fileLocation)
+                let jsonDeconder = JSONDecoder()
+                let dataFromJson = try jsonDeconder.decode([CityData].self, from: data)
+                callback(dataFromJson)
+            } catch {
+                onError(error.localizedDescription)
+            }
+        }
+    }
 
     // MARK: - Non unique city
 
@@ -84,7 +86,7 @@ final class WeatherRepository: WeatherRepositoryType {
 
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void) {
 
-        let stringUrl = "http://api.openweathermap.org/data/2.5/group?id=\(cityId)&units=metric&appid=916792210f24330ed8b2f3f603669f4d"
+        let stringUrl = "http://api.openweathermap.org/data/2.5/group?id=\(cityId)&units=metric&appid=\(apiKey)"
         guard let url = URL(string: stringUrl) else { return }
 
         context.client.request(type: WeatherList.self,
@@ -101,9 +103,28 @@ final class WeatherRepository: WeatherRepositoryType {
         }
     }
 
+    func getWeatherCityFromMap(lat: String, long: String, callback: @escaping (Result<CityFromMap>) -> Void, onError: @escaping (String) -> Void) {
+
+        let stringUrl = "http://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(long)&units=metric&appid=\(apiKey)"
+        guard let url = URL(string: stringUrl) else { return }
+
+        context.client.request(type: CityFromMap.self,
+                               requestType: .GET,
+                               url: url,
+                               cancelledBy: token) { weather in
+                                switch weather {
+                                case .success(value: let cityInfo):
+                                    let result: CityFromMap = cityInfo
+                                    callback(.success(value: result))
+                                case .error(error: let error):
+                                    onError(error.localizedDescription)
+                                }
+        }
+    }
+
     func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
 
-        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&=metric&appid=916792210f24330ed8b2f3f603669f4d"
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&=metric&appid=\(apiKey)"
         guard let url = URL(string: stringUrl) else { return }
         context.client.request(type: Weather.self,
                                requestType: .GET,
@@ -120,7 +141,7 @@ final class WeatherRepository: WeatherRepositoryType {
     }
 
     func getWeatherWeek(idCity: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void) {
-        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?id=\(idCity)&units=metric&appid=916792210f24330ed8b2f3f603669f4d"
+        let stringUrl = "http://api.openweathermap.org/data/2.5/forecast?id=\(idCity)&units=metric&appid=\(apiKey)"
 
         guard let url = URL(string: stringUrl) else { return }
         context.client.request(type: Weather.self,
@@ -148,28 +169,28 @@ final class WeatherRepository: WeatherRepositoryType {
     }
 
     func saveWeatherListItem(weatherListItem: WeatherListItem) {
-            let weatherListObject = WeatherListObject(context: self.context.stack.context)
-            weatherListObject.idCityListObject = weatherListItem.id
-            weatherListObject.countryCityList = weatherListItem.country
-            weatherListObject.nameCityList = weatherListItem.nameCity
-            weatherListObject.tempCityList = weatherListItem.temperature
-            self.context.stack.saveContext()
+        let weatherListObject = WeatherListObject(context: self.context.stack.context)
+        weatherListObject.idCityListObject = weatherListItem.id
+        weatherListObject.countryCityList = weatherListItem.country
+        weatherListObject.nameCityList = weatherListItem.nameCity
+        weatherListObject.tempCityList = weatherListItem.temperature
+        self.context.stack.saveContext()
     }
 
     func saveWeatherWeekItem(weatherWeekItem: WeatherWeekItem) {
-            let weatherObject = WeatherWeekObject(context: self.context.stack.context)
-            weatherObject.cityIDWeek = weatherWeekItem.cityId
-            weatherObject.nameCityWeek = weatherWeekItem.nameCity
-            weatherObject.iconIDWeek = weatherWeekItem.iconID
-            weatherObject.timeWeek = weatherWeekItem.time
-            weatherObject.tempWeek = weatherWeekItem.temperature
-            weatherObject.tempMinWeek = weatherWeekItem.temperatureMin
-            weatherObject.tempMaxWeek = weatherWeekItem.temperatureMax
-            weatherObject.pressureWeek = weatherWeekItem.pressure
-            weatherObject.humidityWeek = weatherWeekItem.humidity
-            weatherObject.feelsLikeWeek = weatherWeekItem.feelsLike
-            weatherObject.descriptionWeek = weatherWeekItem.description
-            self.context.stack.saveContext()
+        let weatherObject = WeatherWeekObject(context: self.context.stack.context)
+        weatherObject.cityIDWeek = weatherWeekItem.cityId
+        weatherObject.nameCityWeek = weatherWeekItem.nameCity
+        weatherObject.iconIDWeek = weatherWeekItem.iconID
+        weatherObject.timeWeek = weatherWeekItem.time
+        weatherObject.tempWeek = weatherWeekItem.temperature
+        weatherObject.tempMinWeek = weatherWeekItem.temperatureMin
+        weatherObject.tempMaxWeek = weatherWeekItem.temperatureMax
+        weatherObject.pressureWeek = weatherWeekItem.pressure
+        weatherObject.humidityWeek = weatherWeekItem.humidity
+        weatherObject.feelsLikeWeek = weatherWeekItem.feelsLike
+        weatherObject.descriptionWeek = weatherWeekItem.description
+        self.context.stack.saveContext()
     }
 
     // MARK: - Get from coredata
