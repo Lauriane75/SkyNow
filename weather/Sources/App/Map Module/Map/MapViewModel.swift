@@ -10,6 +10,7 @@ import Foundation
 
 protocol MapViewModelDelegate: class {
     func displayAlert(for type: AlertType)
+    func goToCityListView(cityId: String)
 }
 
 final class MapViewModel {
@@ -20,6 +21,8 @@ final class MapViewModel {
 
     private weak var delegate: MapViewModelDelegate?
 
+    private var cityId = ""
+
     // MARK: - Initializer
 
     init(repository: WeatherRepositoryType, delegate: MapViewModelDelegate?) {
@@ -29,7 +32,10 @@ final class MapViewModel {
 
     // MARK: - Outputs
 
-//    var titleText: ((String) -> Void)?
+    var cancelButtonText: ((String) -> Void)?
+    var addButtonText: ((String) -> Void)?
+    var labelText: ((String) -> Void)?
+    var viewState: ((Bool) -> Void)?
 
     // MARK: - Inputs
 
@@ -41,4 +47,37 @@ final class MapViewModel {
     }
 
     // MARK: - Private Files
+
+    func findCity(lat: String, long: String) {
+        repository.getWeatherCityFromMap(lat: lat, long: long, callback: { (city) in
+            switch city {
+            case .success(value: let cityValue):
+                let cityFromMapItem = CityFromMapItem(id: "\(cityValue.id)", name: "\(cityValue.name)")
+                DispatchQueue.main.async {
+                    self.viewState?(false)
+                    self.cancelButtonText?("Cancel")
+                    self.addButtonText?("Add")
+                    self.labelText?("\(cityFromMapItem.name)")
+                    self.cityId = "\(cityFromMapItem.id)"
+                }
+            case .error(let error):
+                print(error)
+            }
+        }, onError: { [weak self] _ in
+            guard let self = self else { return }
+            self.viewState?(true)
+        })
+    }
+
+    func didPressCancelButton() {
+        self.viewState?(true)
+    }
+
+    func didPressAddButton() {
+        self.viewState?(true)
+        guard cityId != "" else {
+            return
+        }
+        delegate?.goToCityListView(cityId: cityId)
+    }
 }

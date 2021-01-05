@@ -21,7 +21,9 @@ final class CityListViewModel {
 
     private weak var delegate: CityListViewModelDelegate?
 
-    private var cityId = ""
+    private var cityId: String
+
+    private var id = ""
 
     private var isCelsius = true
 
@@ -47,9 +49,10 @@ final class CityListViewModel {
 
     // MARK: - Initializer
 
-    init(repository: WeatherRepositoryType, delegate: CityListViewModelDelegate?) {
+    init(repository: WeatherRepositoryType, delegate: CityListViewModelDelegate?, cityId: String) {
         self.repository = repository
         self.delegate = delegate
+        self.cityId = cityId
     }
 
     // MARK: - Output
@@ -203,10 +206,10 @@ final class CityListViewModel {
 
     fileprivate func updateCityID() {
         self.isLoading?(true)
-        self.cityId = ""
+        self.id = ""
         repository.getCityItems { (cityItems) in
             cityItems.enumerated().forEach { (_, item) in
-                self.cityId.append(",\(item.id)")
+                self.id.append(",\(item.id)")
             }
         }
     }
@@ -239,7 +242,7 @@ final class CityListViewModel {
     }
 
     fileprivate func updateWeatherListItems() {
-        guard !cityId.isEmpty else {
+        guard !id.isEmpty else {
             self.isLoading?(false)
             return
         }

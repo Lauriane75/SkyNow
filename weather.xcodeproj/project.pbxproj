@@ -31,6 +31,8 @@
 		F665DA1A240D7E91000BBA59 /* CityListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665DA19240D7E90000BBA59 /* CityListDataSource.swift */; };
 		F665DA1C240D7FE2000BBA59 /* CityListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665DA1B240D7FE2000BBA59 /* CityListTableViewCell.swift */; };
 		F666AAF9257E86AA00B56566 /* sky-cloud-sunny.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */; };
+		F66BEF0425A2563D00D1ACAE /* CityFromMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BEF0325A2563D00D1ACAE /* CityFromMap.swift */; };
+		F66BEF0625A2574600D1ACAE /* CityFromMapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66BEF0525A2574600D1ACAE /* CityFromMapItem.swift */; };
 		F671814523F0AFA500D1ADB7 /* DetailDayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814423F0AFA500D1ADB7 /* DetailDayViewModel.swift */; };
 		F671814723F0B01200D1ADB7 /* DetailDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814623F0B01200D1ADB7 /* DetailDayViewController.swift */; };
 		F671814923F1498E00D1ADB7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F671814823F1498E00D1ADB7 /* CoreDataStack.swift */; };
@@ -112,6 +114,8 @@
 		F665DA19240D7E90000BBA59 /* CityListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListDataSource.swift; sourceTree = "<group>"; };
 		F665DA1B240D7FE2000BBA59 /* CityListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListTableViewCell.swift; sourceTree = "<group>"; };
 		F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sky-cloud-sunny.mp4"; sourceTree = "<group>"; };
+		F66BEF0325A2563D00D1ACAE /* CityFromMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityFromMap.swift; sourceTree = "<group>"; };
+		F66BEF0525A2574600D1ACAE /* CityFromMapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityFromMapItem.swift; sourceTree = "<group>"; };
 		F671814423F0AFA500D1ADB7 /* DetailDayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewModel.swift; sourceTree = "<group>"; };
 		F671814623F0B01200D1ADB7 /* DetailDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDayViewController.swift; sourceTree = "<group>"; };
 		F671814823F1498E00D1ADB7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -210,13 +214,13 @@
 			path = DetailWeatherDay;
 			sourceTree = "<group>";
 		};
-		F6278BCA2582343100040018 /* Launchescreen */ = {
+		F6278BCA2582343100040018 /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
 				F6278BCB2582344300040018 /* LaunchScreenViewController.swift */,
 				F6278BCD2582344E00040018 /* LaunchScreenViewModel.swift */,
 			);
-			path = Launchescreen;
+			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
 		F638F2DA240FFBC800A5F903 /* Extension */ = {
@@ -312,7 +316,7 @@
 		F671814223F0AF4D00D1ADB7 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				F6278BCA2582343100040018 /* Launchescreen */,
+				F6278BCA2582343100040018 /* LaunchScreen */,
 				F666AAF4257E732300B56566 /* Video */,
 				F6D8073023ECB4EF00C53355 /* Network */,
 				F6D8072A23ECB27500C53355 /* Navigation */,
@@ -381,8 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				F6C4531923FD3796009A0940 /* README.md */,
-				F6D8072423ECB1EF00C53355 /* Sources */,
 				F6D8072523ECB1F500C53355 /* Ressources */,
+				F6D8072423ECB1EF00C53355 /* Sources */,
 				F6D8070823ECB17500C53355 /* weather.xcdatamodeld */,
 			);
 			path = weather;
@@ -467,6 +471,8 @@
 				F6A0849724577A330018FC65 /* Weather.swift */,
 				F6C541F5246D914000E08D8B /* CityData.swift */,
 				F6A074052487D3FC00050B4D /* UserLocation.swift */,
+				F66BEF0325A2563D00D1ACAE /* CityFromMap.swift */,
+				F66BEF0525A2574600D1ACAE /* CityFromMapItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -554,7 +560,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Lauriane Haydari";
 				TargetAttributes = {
 					F6D806FB23ECB17500C53355 = {
@@ -703,6 +709,7 @@
 				F665DA1A240D7E91000BBA59 /* CityListDataSource.swift in Sources */,
 				F6D8073223ECB51800C53355 /* HTTPClient.swift in Sources */,
 				F665DA1C240D7FE2000BBA59 /* CityListTableViewCell.swift in Sources */,
+				F66BEF0625A2574600D1ACAE /* CityFromMapItem.swift in Sources */,
 				F6984BF9243F64220022C158 /* Location.swift in Sources */,
 				F64079ED258237D4000D8D96 /* BeginAppCoordinator.swift in Sources */,
 				F6D8070A23ECB17500C53355 /* weather.xcdatamodeld in Sources */,
@@ -717,6 +724,7 @@
 				F638F2D9240FA5AF00A5F903 /* CityItem.swift in Sources */,
 				F6A074022487A0C800050B4D /* StoreKIt.swift in Sources */,
 				F6A074062487D3FC00050B4D /* UserLocation.swift in Sources */,
+				F66BEF0425A2563D00D1ACAE /* CityFromMap.swift in Sources */,
 				F6278BCE2582344F00040018 /* LaunchScreenViewModel.swift in Sources */,
 				F6D8070023ECB17500C53355 /* AppDelegate.swift in Sources */,
 				F6C541F8246D9B2E00E08D8B /* CitiesSearchTableViewCell.swift in Sources */,
@@ -797,6 +805,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -821,7 +830,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -857,6 +866,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -875,7 +885,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -892,14 +902,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.1;
+				CURRENT_PROJECT_VERSION = 1.5.2;
 				DEVELOPMENT_TEAM = 568UZNMWK9;
 				INFOPLIST_FILE = weather/Ressources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "-com.lauriane.haydari.weather";
 				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -915,14 +925,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.1;
+				CURRENT_PROJECT_VERSION = 1.5.2;
 				DEVELOPMENT_TEAM = 568UZNMWK9;
 				INFOPLIST_FILE = weather/Ressources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lauriane.haydari.weather;
 				PRODUCT_NAME = SkyNow;
 				PROVISIONING_PROFILE_SPECIFIER = "";

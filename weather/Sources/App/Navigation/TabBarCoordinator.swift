@@ -51,11 +51,10 @@ extension TabBarCoordinator {
 
     func createNavigationController(withTitle title: String, image: UIImage) -> UINavigationController {
         let navController = UINavigationController()
-        navController.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navController.navigationBar.shadowImage = UIImage()
-        navController.navigationBar.tintColor = UIColor.white
-        UITabBar.appearance().tintColor = .lightGray
-        UITabBar.appearance().backgroundColor = .clear
+        let navBar = navController.navigationBar
+        navBar.setBackgroundImage(UIImage(), for: .default)
+        navBar.shadowImage = UIImage()
+        navBar.tintColor = UIColor.white
 
         navController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: nil)
 
