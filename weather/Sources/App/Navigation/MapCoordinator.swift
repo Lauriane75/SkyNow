@@ -42,10 +42,10 @@ extension MapCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: false)
     }
 
-//    private func showCityList(cityId: String) {
-//        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
-//        navigationController.viewControllers = [viewController]
-//    }
+    private func showCityList(cityId: String) {
+        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
+        navigationController.viewControllers = [viewController]
+    }
 
     private func showAlert(for type: AlertType) {
         let alert = screens.createAlertView(for: type)
