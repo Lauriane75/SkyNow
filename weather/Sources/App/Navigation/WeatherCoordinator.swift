@@ -87,10 +87,3 @@ extension WeatherCoordinator: WeekViewModelDelegate {
 
 extension WeatherCoordinator: DetailDayViewModelDelegate {
 }
-
-extension WeatherCoordinator: MapViewModelDelegate {
-    func goToCityListView(cityId: String) {
-        showCityList(cityId: cityId)
-    }
-
-}

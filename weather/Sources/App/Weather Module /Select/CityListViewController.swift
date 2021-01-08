@@ -58,6 +58,9 @@ CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        self.tabBarItem = tabBarController?.selectedIndex = tabBarItem?[0]
+
         setUpBackgroundVideo()
 
         checkForAutorization()

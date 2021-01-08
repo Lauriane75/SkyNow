@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QoK-ZM-VXn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QoK-ZM-VXn">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,12 +25,12 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ajg-1n-w4p"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="04k-d4-yeH" firstAttribute="centerX" secondItem="NKu-ma-1Gm" secondAttribute="centerX" id="UeH-gm-ZuH"/>
                             <constraint firstItem="04k-d4-yeH" firstAttribute="centerY" secondItem="NKu-ma-1Gm" secondAttribute="centerY" id="Uqa-G9-a4E"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ajg-1n-w4p"/>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="04k-d4-yeH" id="a7S-l9-FSl"/>
@@ -111,7 +109,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybQ-ab-Pi6">
-                                                    <rect key="frame" x="20" y="20" width="252" height="103"/>
+                                                    <rect key="frame" x="20" y="20" width="253" height="103"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="A19-Qm-OYX">
                                                             <rect key="frame" x="0.0" y="0.0" width="180" height="103"/>
@@ -138,7 +136,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15°C" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ae-Md-UIo">
-                                                            <rect key="frame" x="180" y="0.0" width="72" height="103"/>
+                                                            <rect key="frame" x="180" y="0.0" width="73" height="103"/>
                                                             <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="23"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -151,7 +149,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bOl-6e-gbr">
-                                                    <rect key="frame" x="280" y="63.5" width="20" height="16.5"/>
+                                                    <rect key="frame" x="281" y="63.5" width="20" height="16.5"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="43U-sx-hJc"/>
@@ -181,7 +179,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Kha-0D-VSc">
                                 <rect key="frame" x="0.0" y="535" width="320" height="33"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgZ-xC-sYQ" userLabel="theWeatherChanel">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EgZ-xC-sYQ" userLabel="theWeatherChanel">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="33"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="10"/>
@@ -196,7 +194,7 @@
                                         <rect key="frame" x="160" y="0.0" width="160" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="tintColor" systemColor="systemPurpleColor"/>
+                                        <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="F°">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -213,7 +211,6 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ls2-k4-DPI"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="wB3-9E-QuY" secondAttribute="trailing" id="9rE-T2-IiY"/>
@@ -238,6 +235,7 @@
                             <constraint firstItem="J29-Gm-7ES" firstAttribute="centerY" secondItem="T36-ru-rTx" secondAttribute="centerY" id="xEM-5o-GKN"/>
                             <constraint firstItem="ICc-lZ-BnZ" firstAttribute="top" secondItem="Ls2-k4-DPI" secondAttribute="top" id="xhz-e3-EKv"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ls2-k4-DPI"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="J29-Gm-7ES" id="lU5-3P-zba"/>
@@ -389,7 +387,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KCa-Io-5IG">
                                         <rect key="frame" x="0.0" y="535" width="320" height="33"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8q-rM-7N5" userLabel="theWeatherChanel">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8q-rM-7N5" userLabel="theWeatherChanel">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="33"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="10"/>
@@ -405,7 +403,7 @@
                                                 <rect key="frame" x="160" y="0.0" width="160" height="33"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <color key="tintColor" systemColor="systemPurpleColor"/>
+                                                <color key="tintColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="F°">
                                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -432,7 +430,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="9aM-kO-fXh"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Z0n-fN-ote" firstAttribute="leading" secondItem="M4E-hW-Qg3" secondAttribute="leading" id="C0O-AY-dri"/>
@@ -453,6 +450,7 @@
                             <constraint firstItem="Z0n-fN-ote" firstAttribute="top" secondItem="M4E-hW-Qg3" secondAttribute="top" id="wCY-va-cRa"/>
                             <constraint firstItem="9aM-kO-fXh" firstAttribute="leading" secondItem="6hL-qG-ztf" secondAttribute="leading" id="wkM-l0-yYZ"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="9aM-kO-fXh"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="pSz-Y3-I21" id="zjX-SN-LDY"/>
@@ -721,7 +719,6 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Xa1-Ab-Ld5"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="XR2-kY-tn4" firstAttribute="height" secondItem="Xa1-Ab-Ld5" secondAttribute="height" multiplier="0.1" id="5um-vF-rqX"/>
@@ -737,6 +734,7 @@
                             <constraint firstItem="Xa1-Ab-Ld5" firstAttribute="trailing" secondItem="XR2-kY-tn4" secondAttribute="trailing" constant="8" id="oI6-vp-UoS"/>
                             <constraint firstItem="HZs-Nx-eyq" firstAttribute="leading" secondItem="dQ2-zb-EHf" secondAttribute="leading" id="vko-d9-oSf"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Xa1-Ab-Ld5"/>
                     </view>
                     <connections>
                         <outlet property="cityLabel" destination="l1D-o5-ATI" id="FlM-BP-2MG"/>
@@ -765,7 +763,7 @@
                                 <rect key="frame" x="40" y="170.5" width="240" height="227"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMd-Ah-j4F">
-                                        <rect key="frame" x="96.5" y="30" width="47" height="22.5"/>
+                                        <rect key="frame" x="96.5" y="30" width="47.5" height="22.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -773,24 +771,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="gEC-na-7qa">
                                         <rect key="frame" x="12" y="173" width="216" height="34"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdq-Ud-4Da">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mdq-Ud-4Da">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Retour">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="didPressBackButton:" destination="Lkp-zZ-5xc" eventType="touchUpInside" id="or7-wv-N6G"/>
-                                                    <action selector="didPressCancelButton:" destination="Lkp-zZ-5xc" eventType="touchUpInside" id="RnK-Vz-NGX"/>
+                                                    <action selector="didPressCancelButton:" destination="Lkp-zZ-5xc" eventType="touchUpInside" id="p3z-l0-h4i"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnJ-Cg-JO7">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QnJ-Cg-JO7">
                                                 <rect key="frame" x="119" y="0.0" width="97" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="blue-skynow"/>
                                                 <state key="normal" title="Ajouter"/>
                                                 <connections>
-                                                    <action selector="didPressAddButton:" destination="Lkp-zZ-5xc" eventType="touchUpInside" id="LqE-IH-mj6"/>
+                                                    <action selector="didPressAddButton:" destination="Lkp-zZ-5xc" eventType="touchUpInside" id="WSZ-h6-10h"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -831,7 +828,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="ZBy-KY-gmj"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="pTy-Dv-afP" secondAttribute="bottom" id="9Fq-rc-lBk"/>
@@ -843,6 +839,7 @@
                             <constraint firstItem="oV4-tg-Sqz" firstAttribute="width" secondItem="IsO-Yg-D3m" secondAttribute="width" multiplier="0.75" id="nFP-7l-iNv"/>
                             <constraint firstItem="pTy-Dv-afP" firstAttribute="leading" secondItem="IsO-Yg-D3m" secondAttribute="leading" id="s20-6V-JKV"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZBy-KY-gmj"/>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="QnJ-Cg-JO7" id="8af-ot-JgD"/>
@@ -859,15 +856,12 @@
     </scenes>
     <resources>
         <image name="background" width="506" height="898"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="48" height="64"/>
         <image name="p" width="16" height="16"/>
         <image name="skynow-logo" width="1024" height="1024"/>
-        <image name="sun.min.fill" catalog="system" width="128" height="121"/>
+        <image name="sun.min.fill" catalog="system" width="64" height="60"/>
         <namedColor name="blue-skynow">
-            <color red="0.28235294117647058" green="0.53725490196078429" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28200000524520874" green="0.53700000047683716" blue="0.60399997234344482" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
