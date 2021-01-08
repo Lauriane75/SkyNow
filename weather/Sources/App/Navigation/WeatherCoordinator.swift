@@ -41,8 +41,8 @@ extension WeatherCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: false)
     }
 
-    private func showWeekWeather(weatherListItem: WeatherListItem) {
-        let viewController = screens.createWeekViewController(delegate: self, weatherListItem: weatherListItem)
+    private func showWeekWeather(weatherListItemID: String) {
+        let viewController = screens.createWeekViewController(delegate: self, weatherListItemID: weatherListItemID)
         navigationController.pushViewController(viewController, animated: true)
     }
 
@@ -60,8 +60,8 @@ extension WeatherCoordinator: CoordinatorProtocol {
 }
 
 extension WeatherCoordinator: CityListViewModelDelegate {
-    func didSelectCity(weatherListItem: WeatherListItem) {
-        showWeekWeather(weatherListItem: weatherListItem)
+    func didSelectCity(weatherListItemID: String) {
+        showWeekWeather(weatherListItemID: weatherListItemID)
     }
 
     func displayAlert(for type: AlertType) {

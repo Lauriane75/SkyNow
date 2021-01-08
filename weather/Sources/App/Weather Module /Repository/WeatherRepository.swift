@@ -10,10 +10,12 @@ import CoreData
 import UIKit
 
 protocol WeatherRepositoryType: class {
+
     // MARK: - Get date from json file
     func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void)
+
     // MARK: - Non unique city
-    func containsCity(for city: CityVerif) -> Bool
+    func cityIdAlreadyExists(for cityId: String) -> Bool
 
     // MARK: - Get from openWeather API
     func getWeatherList(cityId: String, callback: @escaping (Result<WeatherList>) -> Void, onError: @escaping (String) -> Void)
@@ -22,7 +24,7 @@ protocol WeatherRepositoryType: class {
     func getLocationWeather(latitude: String, longitude: String, callback: @escaping (Result<Weather>) -> Void, onError: @escaping (String) -> Void)
 
     // MARK: - Save in coredata
-    func saveCityItem(cityItem: CityItem)
+    func saveCityId(cityId: String)
     func saveWeatherListItem(weatherListItem: WeatherListItem)
     func saveWeatherWeekItem(weatherWeekItem: WeatherWeekItem)
 
@@ -71,14 +73,13 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Non unique city
 
-    func containsCity(for city: CityVerif) -> Bool {
+    func cityIdAlreadyExists(for cityId: String) -> Bool {
         let requestCity: NSFetchRequest<CityObject> = CityObject.fetchRequest()
         guard let cityItems = try? context.stack.context.fetch(requestCity) else { return false }
         self.cityObjects = cityItems
         let cities: [CityItem] = cityItems.map { return CityItem(object: $0) }
         return cities.contains(where: {
-            $0.nameCity == city.nameCity.lowercased() &&
-                $0.country == city.country.lowercased()
+            $0.id == cityId
         })
     }
 
@@ -160,11 +161,9 @@ final class WeatherRepository: WeatherRepositoryType {
 
     // MARK: - Save in coredata
 
-    func saveCityItem(cityItem: CityItem) {
+    func saveCityId(cityId: String) {
         let cityObject = CityObject(context: context.stack.context)
-        cityObject.idCity = cityItem.id
-        cityObject.nameCity = cityItem.nameCity
-        cityObject.countryCity = cityItem.country
+        cityObject.idCity = cityId
         context.stack.saveContext()
     }
 

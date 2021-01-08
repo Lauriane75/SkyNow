@@ -98,13 +98,6 @@ extension CityItem {
     }
 }
 
-extension CityVerif {
-    init(object: CityObject) {
-        self.nameCity = object.nameCity?.lowercased() ?? ""
-        self.country = object.countryCity?.lowercased() ?? ""
-    }
-}
-
 extension WeatherWeekItem {
     init(list: ListElement, city: CityElement, isCelsius: Bool) {
         self.cityId = "\(city.id)"

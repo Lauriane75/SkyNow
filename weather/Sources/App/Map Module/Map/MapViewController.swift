@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import AVKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate {
 
@@ -26,6 +27,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     var userLocation: [Location] = []
 
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+
+    var playerLooper: AVPlayerLooper?
+    var queuePlayer: AVQueuePlayer?
+
     // MARK: - View life cycle
 
     override func viewDidLoad() {
@@ -38,7 +45,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
 
-        setAlertView()
+        setUpAlertViewVideo()
 
         viewModel.viewDidLoad()
     }
@@ -49,19 +56,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     // MARK: - Private Functions
-
-    private func setAlertView() {
-        let gray = UIColor(named: "gray-skynow")?.cgColor
-        let blue = UIColor(named: "blue-skynow")?.cgColor
-        alertView.layer.cornerRadius = 15
-        alertView.layer.backgroundColor = gray
-        cancelButton.layer.cornerRadius = 15
-        cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = UIColor.black.cgColor
-        addButton.layer.cornerRadius = 15
-        addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = blue
-    }
 
     private func bind(to viewModel: MapViewModel) {
         viewModel.viewState = { [weak self] state in
@@ -107,6 +101,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let lat = coordinate.latitude
         let long = coordinate.longitude
         viewModel.findCity(lat: String(lat), long: String(long))
+    }
+
+    fileprivate func setUpAlertViewVideo() {
+        let url = viewModel.setUpVideo()
+        guard url != nil else { return }
+        let item = AVPlayerItem(url: url!)
+        videoPlayer = AVPlayer(playerItem: item)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+        // adjust the size and frame
+        videoPlayerLayer?.frame = CGRect(x: self.alertView.bounds.minX,
+                                         y: self.alertView.bounds.minY,
+                                         width: self.alertView.bounds.maxX + 41,
+                                         height: self.alertView.bounds.maxY + 41)
+
+        // add it to the view and play it
+        guard videoPlayer != nil else { return }
+        videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer!.playImmediately(atRate: 1)
+        videoPlayerLayer?.videoGravity = .resizeAspectFill
+        alertView.layer.insertSublayer(videoPlayerLayer!, at: 0)
+
+        alertView.layer.cornerRadius = 15
+        alertView.layer.masksToBounds = true
+
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
+        videoPlayer!.seek(to: CMTime.zero)
+        videoPlayer!.play()
+        self.videoPlayer?.isMuted = true
+    }
+
+    @objc func playerItemEnded() {
+        videoPlayer!.seek(to: CMTime.zero)
     }
 
     // MARK: - View actions

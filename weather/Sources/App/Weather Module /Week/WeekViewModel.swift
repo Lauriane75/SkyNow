@@ -20,7 +20,7 @@ final class WeekViewModel {
 
     private weak var delegate: WeekViewModelDelegate?
 
-    private var weatherListItem: WeatherListItem
+    private var cityId: String
 
     private var isCelsius = true
 
@@ -33,14 +33,13 @@ final class WeekViewModel {
     }
 
     private let timeWeatherDay = "12:00:00"
-    var tempNowText = ""
 
     // MARK: - Initializer
 
-    init(repository: WeatherRepositoryType, delegate: WeekViewModelDelegate?, weatherListItem: WeatherListItem) {
+    init(repository: WeatherRepositoryType, delegate: WeekViewModelDelegate?, weatherListItemID: String) {
         self.repository = repository
         self.delegate = delegate
-        self.weatherListItem = weatherListItem
+        self.cityId = weatherListItemID
     }
 
     // MARK: - Outputs
@@ -86,7 +85,7 @@ final class WeekViewModel {
     // MARK: - Private Files
 
     fileprivate func updateWeekWeatherItems() {
-        repository.getWeatherWeek(idCity: weatherListItem.id, callback: { (weather) in
+        repository.getWeatherWeek(idCity: cityId, callback: { (weather) in
             switch weather {
             case .success(value: let weatherWeek):
                 let weatherItems: [WeatherWeekItem] = weatherWeek.list.map { item in
@@ -95,7 +94,7 @@ final class WeekViewModel {
                 }
                 self.isLoading?(false)
                 self.initialize(weatherWeekItems: weatherItems)
-                self.repository.deleteWeatherWeekItemInDataBase(idCity: self.weatherListItem.id)
+                self.repository.deleteWeatherWeekItemInDataBase(idCity: self.cityId)
                 self.saveWeatherWeekInDataBase(weatherItems)
             case .error:
                 self.delegate?.displayWeatherAlert(for: .errorService)
@@ -114,7 +113,7 @@ final class WeekViewModel {
     }
 
     private func initialize(weatherWeekItems: [WeatherWeekItem]) {
-        let weekWeatherItems = weatherWeekItems.filter { $0.cityId.contains(self.weatherListItem.id) }
+        let weekWeatherItems = weatherWeekItems.filter { $0.cityId.contains(self.cityId) }
         let items = weekWeatherItems.filter { $0.time.contains(self.timeWeatherDay) }
         if items.isEmpty { return }
         self.weatherItems = items
