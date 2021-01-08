@@ -35,8 +35,6 @@ extension TabBarCoordinator {
 
     func goBackToWeatherItem() {
         tabBarController.selectedIndex = 0
-//        let tabBar = tabBarController.tabBar
-//        tabBar.selectedItem = tabBar.items?[0]
     }
 
     func createTabBar(_ tabBarController: UITabBarController) {

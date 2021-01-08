@@ -209,13 +209,13 @@ final class CityListViewModel {
         self.id = ""
         repository.getCityItems { (cityItems) in
             cityItems.enumerated().forEach { (_, item) in
-                self.id.append(",\(item.id)")
+                self.id.append("\(self.cityId),\(item.id)")
             }
         }
     }
 
     fileprivate func getWeatherList() {
-        self.repository.getWeatherList(cityId: cityId, callback: { (weather) in
+        self.repository.getWeatherList(cityId: id, callback: { (weather) in
             switch weather {
             case .success(let weatherList):
                 self.isLoading?(false)
