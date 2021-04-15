@@ -20,6 +20,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
 
     // MARK: - Properties
 
@@ -45,8 +47,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
 
-        setUpAlertViewVideo()
-
         viewModel.viewDidLoad()
     }
 
@@ -67,8 +67,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         viewModel.cancelButtonText = { [weak self] text in
             self?.cancelButton.setTitle(text, for: .normal)
         }
-        viewModel.labelText = { [weak self] text in
+        viewModel.cityNameText = { [weak self] text in
             self?.alertLabel.text = text
+        }
+        viewModel.iconText = { [weak self] text in
+            self?.iconImageView.image = UIImage(named: text)
+        }
+        viewModel.tempText = { [weak self] text in
+            self?.tempLabel.text = text
         }
     }
 
@@ -101,6 +107,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let lat = coordinate.latitude
         let long = coordinate.longitude
         viewModel.findCity(lat: String(lat), long: String(long))
+        setUpAlertViewVideo()
     }
 
     fileprivate func setUpAlertViewVideo() {
@@ -144,5 +151,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBAction func didPressAddButton(_ sender: Any) {
         viewModel.didPressAddButton()
     }
-
 }

@@ -43,8 +43,8 @@ extension MapCoordinator: CoordinatorProtocol {
     }
 
     private func backToWeatherScreen(cityId: String) {
-//        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
-//        navigationController.setViewControllers([viewController], animated: false)
+        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
+        navigationController.setViewControllers([viewController], animated: false)
         tabBarCoordinator.goBackToWeatherItem()
     }
 

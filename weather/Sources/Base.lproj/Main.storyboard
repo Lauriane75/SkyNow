@@ -847,7 +847,9 @@
                         <outlet property="alertLabel" destination="SMd-Ah-j4F" id="0B8-gD-OBL"/>
                         <outlet property="alertView" destination="oV4-tg-Sqz" id="sZa-dc-Omh"/>
                         <outlet property="cancelButton" destination="mdq-Ud-4Da" id="Fvy-0a-PfT"/>
+                        <outlet property="iconImageView" destination="n13-su-dnU" id="muQ-LV-dHi"/>
                         <outlet property="mapView" destination="pTy-Dv-afP" id="F13-bd-vg9"/>
+                        <outlet property="tempLabel" destination="nBy-kR-Eba" id="v6U-Ct-hcj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWc-4E-lVS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

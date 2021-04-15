@@ -11,4 +11,6 @@ import Foundation
 struct CityFromMapItem: Equatable {
     let id: String
     let name: String
+    let temp: Int
+    let icon: String
 }

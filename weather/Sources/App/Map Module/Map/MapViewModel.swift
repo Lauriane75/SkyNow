@@ -23,6 +23,8 @@ final class MapViewModel {
 
     private var cityId = ""
 
+    private var icon = ""
+
     // MARK: - Initializer
 
     init(repository: WeatherRepositoryType, delegate: MapViewModelDelegate?) {
@@ -34,7 +36,9 @@ final class MapViewModel {
 
     var cancelButtonText: ((String) -> Void)?
     var addButtonText: ((String) -> Void)?
-    var labelText: ((String) -> Void)?
+    var cityNameText: ((String) -> Void)?
+    var iconText: ((String) -> Void)?
+    var tempText: ((String) -> Void)?
     var viewState: ((Bool) -> Void)?
 
     // MARK: - Inputs
@@ -52,13 +56,15 @@ final class MapViewModel {
         repository.getWeatherCityFromMap(lat: lat, long: long, callback: { (city) in
             switch city {
             case .success(value: let cityValue):
-                let cityFromMapItem = CityFromMapItem(id: "\(cityValue.id)", name: "\(cityValue.name)")
+                let cityFromMapItem = CityFromMapItem(id: "\(cityValue.id)", name: "\(cityValue.name)", temp: Int(cityValue.main.temp), icon: "\(cityValue.weather.first?.icon ?? "")")
                 DispatchQueue.main.async {
                     self.viewState?(false)
                     self.cancelButtonText?("Cancel")
                     self.addButtonText?("Add")
-                    self.labelText?("\(cityFromMapItem.name)")
+                    self.cityNameText?("\(cityFromMapItem.name)")
                     self.cityId = "\(cityFromMapItem.id)"
+                    self.iconText?(cityFromMapItem.icon)
+                    self.tempText?("\(cityFromMapItem.temp) °C")
                 }
             case .error(let error):
                 print(error)
@@ -82,8 +88,8 @@ final class MapViewModel {
     }
 
     func setUpVideo() -> URL? {
-          let bundlePath = Bundle.main.path(forResource: "sky-cloud-sunny", ofType: "mp4")
-          guard bundlePath != nil else { return nil }
-          return URL(fileURLWithPath: bundlePath!)
-      }
+        let bundlePath = Bundle.main.path(forResource: "sky-cloud-sunny", ofType: "mp4")
+        guard bundlePath != nil else { return nil }
+        return URL(fileURLWithPath: bundlePath!)
+    }
 }

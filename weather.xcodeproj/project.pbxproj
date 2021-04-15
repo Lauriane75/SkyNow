@@ -48,6 +48,7 @@
 		F6A7CF0F23F3F4F300DE4D2E /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7CF0E23F3F4F300DE4D2E /* MapViewModel.swift */; };
 		F6A7CF1123F3F50000DE4D2E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7CF1023F3F50000DE4D2E /* MapViewController.swift */; };
 		F6A7CF1423F3F62300DE4D2E /* WeatherWeekItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A7CF1323F3F62300DE4D2E /* WeatherWeekItem.swift */; };
+		F6BBEEFF25A8AF6300D47B51 /* sky-sunny.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F6BBEEFE25A8AF6300D47B51 /* sky-sunny.mp4 */; };
 		F6C4531A23FD3797009A0940 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F6C4531923FD3796009A0940 /* README.md */; };
 		F6C541F6246D914000E08D8B /* CityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C541F5246D914000E08D8B /* CityData.swift */; };
 		F6C541F8246D9B2E00E08D8B /* CitiesSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C541F7246D9B2E00E08D8B /* CitiesSearchTableViewCell.swift */; };
@@ -132,6 +133,7 @@
 		F6A7CF0E23F3F4F300DE4D2E /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		F6A7CF1023F3F50000DE4D2E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F6A7CF1323F3F62300DE4D2E /* WeatherWeekItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWeekItem.swift; sourceTree = "<group>"; };
+		F6BBEEFE25A8AF6300D47B51 /* sky-sunny.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sky-sunny.mp4"; sourceTree = "<group>"; };
 		F6C4531923FD3796009A0940 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		F6C541F5246D914000E08D8B /* CityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityData.swift; sourceTree = "<group>"; };
 		F6C541F7246D9B2E00E08D8B /* CitiesSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesSearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		F666AAF4257E732300B56566 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				F6BBEEFE25A8AF6300D47B51 /* sky-sunny.mp4 */,
 				F666AAF8257E86AA00B56566 /* sky-cloud-sunny.mp4 */,
 			);
 			name = Video;
@@ -602,6 +605,7 @@
 				F6C4531A23FD3797009A0940 /* README.md in Resources */,
 				F666AAF9257E86AA00B56566 /* sky-cloud-sunny.mp4 in Resources */,
 				F6D8070723ECB17500C53355 /* Main.storyboard in Resources */,
+				F6BBEEFF25A8AF6300D47B51 /* sky-sunny.mp4 in Resources */,
 				F6A5DA7124878A18001A79CE /* city.list.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
