@@ -13,8 +13,3 @@ struct CityItem: Equatable {
     let nameCity: String
     let country: String
 }
-
-struct CityVerif: Equatable {
-    let nameCity: String
-    let country: String
-}

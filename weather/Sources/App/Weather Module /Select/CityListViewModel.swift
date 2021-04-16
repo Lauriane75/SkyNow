@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CityListViewModelDelegate: class {
-    func didSelectCity(weatherListItem: WeatherListItem)
+    func didSelectCity(weatherListItemID: String)
     func displayAlert(for type: AlertType)
 }
 
@@ -69,8 +69,6 @@ final class CityListViewModel {
 
     var urlString: ((String) -> Void)?
 
-    var selectedCityText: ((String) -> Void)?
-
     var tableViewisHidden: ((Bool) -> Void)?
 
     var stackViewisHidden: ((Bool) -> Void)?
@@ -115,11 +113,9 @@ final class CityListViewModel {
     func didSelectCityInSearchBar(at index: Int) {
         guard !self.visibleCities.isEmpty, index < self.visibleCities.count else { return }
         let item = self.visibleCities[index]
-        self.selectedCityText?("\(item.name), \(item.country), \(item.state)")
-        let cityVerif = CityVerif(nameCity: item.name, country: item.country)
-        if self.containsCity(cityVerif: cityVerif) == false {
+        if self.containsCityId(cityId: "\(item.id)") == false {
             let cityItem = CityItem(id: "\(item.id)", nameCity: item.name, country: item.country)
-            updateList(cityItem: cityItem)
+            updateList(cityId: cityItem.id)
             tableViewisHidden?(false)
             stackViewisHidden?(true)
             tableViewTopConstraint?(0)
@@ -154,7 +150,7 @@ final class CityListViewModel {
     func didSelectWeatherCityInList(at index: Int) {
         guard !self.weatherListItems.isEmpty, index < self.weatherListItems.count else { return }
         let item = self.weatherListItems[index]
-        self.delegate?.didSelectCity(weatherListItem: item)
+        self.delegate?.didSelectCity(weatherListItemID: item.id)
     }
 
     func didPressDeleteCity(at index: Int) {
@@ -177,14 +173,8 @@ final class CityListViewModel {
             case .success(value: let weatherLocation):
                 DispatchQueue.main.async {
                     let id = "\(weatherLocation.city.id)"
-                    let name = weatherLocation.city.name
-                    let country = weatherLocation.city.country
-
-                    let cityVerif = CityVerif(nameCity: name, country: country)
-
-                    if self.containsCity(cityVerif: cityVerif) == false {
-                        let cityItem = CityItem(id: id, nameCity: name, country: country)
-                        self.updateList(cityItem: cityItem)
+                    if self.containsCityId(cityId: id) == false {
+                        self.updateList(cityId: id)
                     }
                 }
             case .error(error: let error):
@@ -196,8 +186,8 @@ final class CityListViewModel {
         })
     }
 
-    fileprivate func containsCity(cityVerif: CityVerif) -> Bool {
-        if repository.containsCity(for: cityVerif) {
+    fileprivate func containsCityId(cityId: String) -> Bool {
+        if repository.cityIdAlreadyExists(for: cityId) {
             self.isLoading?(false)
             return true
         }
@@ -209,13 +199,13 @@ final class CityListViewModel {
         self.id = ""
         repository.getCityItems { (cityItems) in
             cityItems.enumerated().forEach { (_, item) in
-                self.id.append(",\(item.id)")
+                self.id.append("\(self.cityId),\(item.id)")
             }
         }
     }
 
     fileprivate func getWeatherList() {
-        self.repository.getWeatherList(cityId: cityId, callback: { (weather) in
+        self.repository.getWeatherList(cityId: id, callback: { (weather) in
             switch weather {
             case .success(let weatherList):
                 self.isLoading?(false)
@@ -271,8 +261,8 @@ final class CityListViewModel {
         }
     }
 
-    fileprivate func updateList(cityItem: CityItem) {
-        repository.saveCityItem(cityItem: cityItem)
+    fileprivate func updateList(cityId: String) {
+        repository.saveCityId(cityId: cityId)
         updateCityID()
         updateWeatherListItems()
     }

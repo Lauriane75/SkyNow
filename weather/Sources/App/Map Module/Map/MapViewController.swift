@@ -9,13 +9,14 @@
 import UIKit
 import MapKit
 import CoreLocation
+import AVKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate {
 
     // MARK: - Outlet
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -26,10 +27,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     var userLocation: [Location] = []
 
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+
+    var playerLooper: AVPlayerLooper?
+    var queuePlayer: AVQueuePlayer?
+
     // MARK: - View life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         mapView.delegate = self
         mapViewCustom()
 
@@ -37,7 +45,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
 
-        setAlertView()
+        setUpPopupViewVideo()
 
         viewModel.viewDidLoad()
     }
@@ -49,22 +57,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     // MARK: - Private Functions
 
-    private func setAlertView() {
-        let gray = UIColor(named: "gray-skynow")?.cgColor
-        let blue = UIColor(named: "blue-skynow")?.cgColor
-        alertView.layer.cornerRadius = 15
-        alertView.layer.backgroundColor = gray
-        cancelButton.layer.cornerRadius = 15
-        cancelButton.layer.borderWidth = 1
-        cancelButton.layer.borderColor = UIColor.black.cgColor
-        addButton.layer.cornerRadius = 15
-        addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = blue
-    }
-
     private func bind(to viewModel: MapViewModel) {
         viewModel.viewState = { [weak self] state in
-            self?.alertView.isHidden = state
+            self?.popupView.isHidden = state
         }
         viewModel.addButtonText = { [weak self] text in
             self?.addButton.setTitle(text, for: .normal)
@@ -106,6 +101,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let lat = coordinate.latitude
         let long = coordinate.longitude
         viewModel.findCity(lat: String(lat), long: String(long))
+    }
+
+    fileprivate func setUpPopupViewVideo() {
+        let popupFrame = CGRect(x: self.popupView.bounds.minX,
+                                y: self.popupView.bounds.minY,
+                                width: self.popupView.bounds.maxX + 41,
+                                height: self.popupView.bounds.maxY + 41)
+        let url = viewModel.setUpVideo()
+        guard url != nil else { return }
+        let item = AVPlayerItem(url: url!)
+        videoPlayer = AVPlayer(playerItem: item)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
+        // adjust the size and frame
+        videoPlayerLayer?.frame = popupFrame
+
+        // add it to the view and play it
+        guard let videoPlayer = videoPlayer else { return }
+        videoPlayer.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer.playImmediately(atRate: 1)
+        videoPlayerLayer?.videoGravity = .resizeAspectFill
+        popupView.layer.insertSublayer(videoPlayerLayer!, at: 0)
+
+        popupView.layer.cornerRadius = 15
+        popupView.layer.masksToBounds = true
+
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem)
+        videoPlayer.seek(to: CMTime.zero)
+        videoPlayer.play()
+        self.videoPlayer?.isMuted = true
+    }
+
+    @objc func playerItemEnded() {
+        videoPlayer!.seek(to: CMTime.zero)
     }
 
     // MARK: - View actions

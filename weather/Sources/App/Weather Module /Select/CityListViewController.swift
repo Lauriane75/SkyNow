@@ -58,6 +58,7 @@ CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setUpBackgroundVideo()
 
         checkForAutorization()

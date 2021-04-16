@@ -33,14 +33,17 @@ class TabBarCoordinator {
 
 extension TabBarCoordinator {
 
+    func goBackToWeatherItem() {
+        tabBarController.selectedIndex = 0
+    }
+
     func createTabBar(_ tabBarController: UITabBarController) {
         let weatherItem = createNavigationController(withTitle: "Weather", image: UIImage(systemName: "sun.min.fill")!)
-        let mapItem = createNavigationController(withTitle: "Map", image: UIImage(systemName: "mappin.and.ellipse")!)
-
         let weatherCoordinator = WeatherCoordinator(presenter: weatherItem, screens: screens)
         coordinators.append(weatherCoordinator)
         weatherCoordinator.start()
 
+        let mapItem = createNavigationController(withTitle: "Map", image: UIImage(systemName: "mappin.and.ellipse")!)
         let mapCoordinator = MapCoordinator(presenter: mapItem, screens: screens)
         coordinators.append(mapCoordinator)
         mapCoordinator.start()

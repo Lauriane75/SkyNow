@@ -48,12 +48,12 @@ extension Screens {
 // MARK: - Week
 
 extension Screens {
-    func createWeekViewController(delegate: WeekViewModelDelegate?, weatherListItem: WeatherListItem) -> UIViewController {
+    func createWeekViewController(delegate: WeekViewModelDelegate?, weatherListItemID: String) -> UIViewController {
         let viewController = storyboard.instantiateViewController(withIdentifier:
             "WeekViewController") as! WeekViewController
         let repository = WeatherRepository(context: context)
         let viewModel = WeekViewModel(repository: repository,
-                                      delegate: delegate, weatherListItem: weatherListItem)
+                                      delegate: delegate, weatherListItemID: weatherListItemID)
         viewController.viewModel = viewModel
         return viewController
     }

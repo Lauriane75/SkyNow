@@ -36,13 +36,13 @@ extension WeatherCoordinator: CoordinatorProtocol {
 
     // MARK: - Create viewControllers
 
-    private func showCityList(cityId: String) {
+    func showCityList(cityId: String) {
         let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
         navigationController.pushViewController(viewController, animated: false)
     }
 
-    private func showWeekWeather(weatherListItem: WeatherListItem) {
-        let viewController = screens.createWeekViewController(delegate: self, weatherListItem: weatherListItem)
+    private func showWeekWeather(weatherListItemID: String) {
+        let viewController = screens.createWeekViewController(delegate: self, weatherListItemID: weatherListItemID)
         navigationController.pushViewController(viewController, animated: true)
     }
 
@@ -60,8 +60,8 @@ extension WeatherCoordinator: CoordinatorProtocol {
 }
 
 extension WeatherCoordinator: CityListViewModelDelegate {
-    func didSelectCity(weatherListItem: WeatherListItem) {
-        showWeekWeather(weatherListItem: weatherListItem)
+    func didSelectCity(weatherListItemID: String) {
+        showWeekWeather(weatherListItemID: weatherListItemID)
     }
 
     func displayAlert(for type: AlertType) {
@@ -86,11 +86,4 @@ extension WeatherCoordinator: WeekViewModelDelegate {
 }
 
 extension WeatherCoordinator: DetailDayViewModelDelegate {
-}
-
-extension WeatherCoordinator: MapViewModelDelegate {
-    func goToCityListView(cityId: String) {
-        showCityList(cityId: cityId)
-    }
-
 }
