@@ -433,9 +433,9 @@
 				F6D8072823ECB25800C53355 /* AppCoordinator.swift */,
 				F61E36BF2436194C0093C5A9 /* TabBarCoordinator.swift */,
 				F6D8072B23ECB28B00C53355 /* Screens.swift */,
-				F6A2F84F23ED77B600A34B0A /* WeatherCoordinator.swift */,
 				F64079EC258237D4000D8D96 /* BeginAppCoordinator.swift */,
 				F64079EE25823830000D8D96 /* LaunchScreenCoordinator.swift */,
+				F6A2F84F23ED77B600A34B0A /* WeatherCoordinator.swift */,
 				F6610CED243C7F6F00032D4A /* MapCoordinator.swift */,
 			);
 			path = Navigation;

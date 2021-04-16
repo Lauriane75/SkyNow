@@ -16,7 +16,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     // MARK: - Outlet
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var alertView: UIView!
+    @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
@@ -45,7 +45,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
 
-        setUpAlertViewVideo()
+        setUpPopupViewVideo()
 
         viewModel.viewDidLoad()
     }
@@ -59,7 +59,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     private func bind(to viewModel: MapViewModel) {
         viewModel.viewState = { [weak self] state in
-            self?.alertView.isHidden = state
+            self?.popupView.isHidden = state
         }
         viewModel.addButtonText = { [weak self] text in
             self?.addButton.setTitle(text, for: .normal)
@@ -103,31 +103,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         viewModel.findCity(lat: String(lat), long: String(long))
     }
 
-    fileprivate func setUpAlertViewVideo() {
+    fileprivate func setUpPopupViewVideo() {
+        let popupFrame = CGRect(x: self.popupView.bounds.minX,
+                                y: self.popupView.bounds.minY,
+                                width: self.popupView.bounds.maxX + 41,
+                                height: self.popupView.bounds.maxY + 41)
         let url = viewModel.setUpVideo()
         guard url != nil else { return }
         let item = AVPlayerItem(url: url!)
         videoPlayer = AVPlayer(playerItem: item)
         videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
         // adjust the size and frame
-        videoPlayerLayer?.frame = CGRect(x: self.alertView.bounds.minX,
-                                         y: self.alertView.bounds.minY,
-                                         width: self.alertView.bounds.maxX + 41,
-                                         height: self.alertView.bounds.maxY + 41)
+        videoPlayerLayer?.frame = popupFrame
 
         // add it to the view and play it
-        guard videoPlayer != nil else { return }
-        videoPlayer!.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
-        videoPlayer!.playImmediately(atRate: 1)
+        guard let videoPlayer = videoPlayer else { return }
+        videoPlayer.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        videoPlayer.playImmediately(atRate: 1)
         videoPlayerLayer?.videoGravity = .resizeAspectFill
-        alertView.layer.insertSublayer(videoPlayerLayer!, at: 0)
+        popupView.layer.insertSublayer(videoPlayerLayer!, at: 0)
 
-        alertView.layer.cornerRadius = 15
-        alertView.layer.masksToBounds = true
+        popupView.layer.cornerRadius = 15
+        popupView.layer.masksToBounds = true
 
-        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer!.currentItem)
-        videoPlayer!.seek(to: CMTime.zero)
-        videoPlayer!.play()
+        NotificationCenter.default.addObserver(self, selector: #selector(playerItemEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem)
+        videoPlayer.seek(to: CMTime.zero)
+        videoPlayer.play()
         self.videoPlayer?.isMuted = true
     }
 

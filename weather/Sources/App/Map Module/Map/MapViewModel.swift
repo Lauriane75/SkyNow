@@ -9,7 +9,6 @@
 import Foundation
 
 protocol MapViewModelDelegate: class {
-    func displayAlert(for type: AlertType)
     func goToCityListView(cityId: String)
 }
 

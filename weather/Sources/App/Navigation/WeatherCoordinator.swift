@@ -36,7 +36,7 @@ extension WeatherCoordinator: CoordinatorProtocol {
 
     // MARK: - Create viewControllers
 
-    private func showCityList(cityId: String) {
+    func showCityList(cityId: String) {
         let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
         navigationController.pushViewController(viewController, animated: false)
     }

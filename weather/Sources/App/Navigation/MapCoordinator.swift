@@ -20,16 +20,19 @@ final class MapCoordinator {
 
     let tabBarCoordinator: TabBarCoordinator
 
+    let weatherCoordinator: WeatherCoordinator
+
     // MARK: - Initializer
 
     init(presenter: UINavigationController, screens: Screens) {
         self.navigationController = presenter
         self.screens = screens
         self.tabBarCoordinator = TabBarCoordinator.init(screens: screens)
+        self.weatherCoordinator = WeatherCoordinator.init(presenter: navigationController, screens: screens)
     }
 }
 
-    // MARK: - CoordinatorProtocol
+// MARK: - CoordinatorProtocol
 
 extension MapCoordinator: CoordinatorProtocol {
 
@@ -41,31 +44,20 @@ extension MapCoordinator: CoordinatorProtocol {
         let viewController = screens.createMapViewController(delegate: self)
         navigationController.pushViewController(viewController, animated: false)
     }
+}
 
-    private func backToWeatherScreen(cityId: String) {
-//        let viewController = screens.createSelectViewController(delegate: self, cityId: cityId)
-//        navigationController.setViewControllers([viewController], animated: false)
-        tabBarCoordinator.goBackToWeatherItem()
+extension MapCoordinator: CityListViewModelDelegate {
+    func displayAlert(for type: AlertType) {
+
     }
 
-    private func showAlert(for type: AlertType) {
-        let alert = screens.createAlertView(for: type)
-        navigationController.visibleViewController?.present(alert, animated: true, completion: nil)
+    func didSelectCity(weatherListItemID: String) {
+
     }
 }
 
 extension MapCoordinator: MapViewModelDelegate {
     func goToCityListView(cityId: String) {
-        backToWeatherScreen(cityId: cityId)
-    }
-
-    func displayAlert(for type: AlertType) {
-        showAlert(for: type)
-    }
-}
-
-extension MapCoordinator: CityListViewModelDelegate {
-    func didSelectCity(weatherListItemID: String) {
-
+        weatherCoordinator.showCityList(cityId: cityId)
     }
 }
