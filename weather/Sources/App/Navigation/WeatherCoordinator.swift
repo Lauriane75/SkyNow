@@ -41,6 +41,10 @@ extension WeatherCoordinator: CoordinatorProtocol {
         navigationController.pushViewController(viewController, animated: false)
     }
 
+    func backToCityList() {
+        navigationController.tabBarController?.selectedIndex = 0
+    }
+
     private func showWeekWeather(weatherListItemID: String) {
         let viewController = screens.createWeekViewController(delegate: self, weatherListItemID: weatherListItemID)
         navigationController.pushViewController(viewController, animated: true)

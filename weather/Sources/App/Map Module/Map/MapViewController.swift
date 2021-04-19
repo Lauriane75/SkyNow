@@ -39,19 +39,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
 
         mapView.delegate = self
-        mapViewCustom()
 
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         gestureRecognizer.delegate = self
         mapView.addGestureRecognizer(gestureRecognizer)
-
         setUpPopupViewVideo()
-
-        viewModel.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.viewWillAppear()
         bind(to: viewModel)
     }
 
@@ -73,14 +68,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     // MARK: - Private Files
-
-    fileprivate func mapViewCustom() {
-        mapView.register(PointAnnotation.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-
-        let poi = MKPointAnnotation()
-        poi.coordinate = CLLocationCoordinate2D(latitude: 48.866667, longitude: 2.333333)
-        mapView.addAnnotation(poi)
-    }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
@@ -104,25 +91,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     fileprivate func setUpPopupViewVideo() {
-        let popupFrame = CGRect(x: self.popupView.bounds.minX,
-                                y: self.popupView.bounds.minY,
-                                width: self.popupView.bounds.maxX + 41,
-                                height: self.popupView.bounds.maxY + 41)
+        self.popupView.backgroundColor = .red
         let url = viewModel.setUpVideo()
         guard url != nil else { return }
         let item = AVPlayerItem(url: url!)
         videoPlayer = AVPlayer(playerItem: item)
         videoPlayerLayer = AVPlayerLayer(player: videoPlayer!)
         // adjust the size and frame
-        videoPlayerLayer?.frame = popupFrame
-
+        videoPlayerLayer?.frame = view.frame
         // add it to the view and play it
         guard let videoPlayer = videoPlayer else { return }
         videoPlayer.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
         videoPlayer.playImmediately(atRate: 1)
         videoPlayerLayer?.videoGravity = .resizeAspectFill
         popupView.layer.insertSublayer(videoPlayerLayer!, at: 0)
-
         popupView.layer.cornerRadius = 15
         popupView.layer.masksToBounds = true
 

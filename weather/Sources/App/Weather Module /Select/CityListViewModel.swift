@@ -63,8 +63,6 @@ final class CityListViewModel {
 
     var isLoading: ((Bool) -> Void)?
 
-    var navBarTitle: ((String) -> Void)?
-
     var unitText: ((String) -> Void)?
 
     var urlString: ((String) -> Void)?
@@ -75,16 +73,18 @@ final class CityListViewModel {
 
     var tableViewTopConstraint: ((Float) -> Void)?
 
+    var searchViewPlaceholderText: ((String) -> Void)?
+
     // MARK: - Input
 
     func viewDidLoad() {
-        navBarTitle?("City list")
         unitText?(" °F")
         urlString?("https://weather.com/")
         tableViewTopConstraint?(0)
     }
 
     func viewWillAppear() {
+        searchViewPlaceholderText?("Enter a city")
         updateWeatherLocation()
         updateCityID()
     }
