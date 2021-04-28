@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol LaunchScreenViewModelDelegate: class {
+protocol LaunchScreenViewModelDelegate: AnyObject {
     func goToHomeView()
 }
 

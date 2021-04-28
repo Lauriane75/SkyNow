@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MapViewModelDelegate: class {
+protocol MapViewModelDelegate: AnyObject {
     func goToCityListView()
 }
 
