@@ -86,7 +86,7 @@ CLLocationManagerDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         viewModel.viewDidAppear()
-//        AppStoreReviewManager .requestReviewIfAppropriate()
+        AppStoreReviewManager .requestReviewIfAppropriate()
     }
 
     // MARK: - Private Functions
