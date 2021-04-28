@@ -62,7 +62,8 @@ CLLocationManagerDelegate {
         setUpBackgroundVideo()
 
         checkForAutorization()
-        navigationBarCustom()
+
+        navigationItem.searchController = searchController
 
         tableView.delegate = source
         tableView.dataSource = source
@@ -178,8 +179,8 @@ CLLocationManagerDelegate {
     // MARK: - Private Files
 
     fileprivate func searchBarCustom() {
-        let glassIcon = searchController.searchBar.searchTextField.leftView
-        glassIcon?.tintColor = UIColor.white
+        let loopIcon = searchController.searchBar.searchTextField.leftView
+        loopIcon?.tintColor = UIColor.white
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         searchController.searchBar.delegate = self
@@ -188,6 +189,10 @@ CLLocationManagerDelegate {
         searchController.searchBar.searchTextField.textColor = UIColor.white
         searchController.searchBar.isTranslucent = true
         searchController.searchBar.searchTextField.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+
+        viewModel.searchViewPlaceholderText = { [weak self] text in
+            self!.searchController.searchBar.placeholder = text
+        }
     }
 
     fileprivate func checkForAutorization() {
@@ -210,18 +215,6 @@ CLLocationManagerDelegate {
         tableViewTopConstraint.constant = view.frame.height
         stackView.isHidden = false
         tableView.isHidden = true
-    }
-
-    fileprivate func navigationBarCustom() {
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                              NSAttributedString.Key.font: UIFont(name: "kailasa", size: 20)]
-        guard let bar = navigationController?.navigationBar else { return }
-        bar.titleTextAttributes = textAttributes as [NSAttributedString.Key: Any]
-        self.viewModel.navBarTitle = { [weak self] text in
-            guard let self = self else { return }
-            self.navigationItem.title = text
-        }
-        navigationItem.searchController = searchController
     }
 
     fileprivate func setUpBackgroundVideo() {

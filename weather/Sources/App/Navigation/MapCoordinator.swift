@@ -57,7 +57,7 @@ extension MapCoordinator: CityListViewModelDelegate {
 }
 
 extension MapCoordinator: MapViewModelDelegate {
-    func goToCityListView(cityId: String) {
-        weatherCoordinator.showCityList(cityId: cityId)
+    func goToCityListView() {
+        weatherCoordinator.backToCityList()
     }
 }

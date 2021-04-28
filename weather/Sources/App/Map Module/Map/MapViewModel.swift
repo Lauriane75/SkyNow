@@ -9,7 +9,7 @@
 import Foundation
 
 protocol MapViewModelDelegate: class {
-    func goToCityListView(cityId: String)
+    func goToCityListView()
 }
 
 final class MapViewModel {
@@ -37,13 +37,6 @@ final class MapViewModel {
     var viewState: ((Bool) -> Void)?
 
     // MARK: - Inputs
-
-    func viewDidLoad() {
-    }
-
-    func viewWillAppear() {
-
-    }
 
     // MARK: - Private Files
 
@@ -77,7 +70,8 @@ final class MapViewModel {
         guard cityId != "" else {
             return
         }
-        delegate?.goToCityListView(cityId: cityId)
+        repository.saveCityId(cityId: cityId)
+        delegate?.goToCityListView()
     }
 
     func setUpVideo() -> URL? {
