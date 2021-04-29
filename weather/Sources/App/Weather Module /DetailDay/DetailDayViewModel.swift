@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DetailDayViewModelDelegate: class {
+protocol DetailDayViewModelDelegate: AnyObject {
     func displayWeatherAlert(for type: AlertType)
 }
 

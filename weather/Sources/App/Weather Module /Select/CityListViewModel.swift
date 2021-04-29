@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CityListViewModelDelegate: class {
+protocol CityListViewModelDelegate: AnyObject {
     func didSelectCity(weatherListItemID: String)
     func displayAlert(for type: AlertType)
 }

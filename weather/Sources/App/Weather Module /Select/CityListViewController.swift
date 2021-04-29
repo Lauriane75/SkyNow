@@ -174,6 +174,7 @@ CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         viewModel.didSendUserLocation(latitude: "\(locValue.latitude)", longitude: "\(locValue.longitude)")
+        viewModel.viewWillAppear()
     }
 
     // MARK: - Private Files

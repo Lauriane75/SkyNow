@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol WeekViewModelDelegate: class {
+protocol WeekViewModelDelegate: AnyObject {
     func didSelectDay(item: WeatherWeekItem)
     func displayWeatherAlert(for type: AlertType)
 }

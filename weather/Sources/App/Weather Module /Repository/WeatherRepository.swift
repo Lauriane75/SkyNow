@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-protocol WeatherRepositoryType: class {
+protocol WeatherRepositoryType: AnyObject {
 
     // MARK: - Get date from json file
     func loadCities(callback: @escaping ([CityData]) -> Void, onError: @escaping (String) -> Void)
